@@ -9,6 +9,11 @@ public class Residential extends Building
 	int bathroom;
 	ArrayList<String>Features;
 	
+	public Residential(String type, double sq)
+	{
+		super(type, sq);
+	}
+	
 	public int getRoom()
 	{
 		return room;
@@ -20,8 +25,14 @@ public class Residential extends Building
 		return bathroom;
 	}
 
-	public void setRoom(int room) {
+	public void setRoom(int room) 
+	{
 		this.room = room;
+	}
+	
+	public String toString()
+	{
+		return (super.toString());
 	}
 	
 	
