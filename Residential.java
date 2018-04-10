@@ -9,11 +9,12 @@ public class Residential extends Building
 	int bathroom;
 	ArrayList<String>Features;
 	
-	public Residential(String type, double sq)
+	public Residential(boolean upForSale, String type, double sq, double price, String loacation)
 	{
-		super(type, sq);
+		super();
 	}
 	
+	//gets room and returns room
 	public int getRoom()
 	{
 		return room;
@@ -24,12 +25,14 @@ public class Residential extends Building
 	{
 		return bathroom;
 	}
-
+	
+	// sets room
 	public void setRoom(int room) 
 	{
 		this.room = room;
 	}
 	
+	// toString method to print info of Residential
 	public String toString()
 	{
 		return (super.toString());
