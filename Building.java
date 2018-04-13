@@ -6,113 +6,80 @@ import java.util.ArrayList;
  */
 public class Building {
 
-	boolean upForSale;
-	boolean appraised;
-	boolean sold;
-	String type;
-	double sq;
-	ArrayList<String> features;
-	double price;
-	String location;
+	private String type;
+	private double price;
+	private int squareFt;
+	private int floor;
+	private int room;
+	private int bathroom;
+	private String location;
 	
-	public Building(boolean upForSale, String type, double sq, double price, String loacation) {
-		super();
-		this.upForSale = upForSale;
+	public Building(String type, double price, int squareFt, int floor, int room, int bathroom, String location) {
 		this.type = type;
-		this.sq = sq;
-	    features = new ArrayList();
 		this.price = price;
-		appraised = false;
-		sold = false;
+		this.squareFt = squareFt;
+		this.floor = floor;
+		this.room = room;
+		this.bathroom = bathroom;
 		this.location = location;
 	}
 
-	/**
-	 * @return upForSale
-	 * gives a boolean if said building is up for sale or not
-	 */
-	public boolean isUpForSale() {
-		return upForSale;
+	public int getFloor() {
+		return floor;
 	}
 
-	/**
-	 * @return type
-	 * gives a String return the specific type of building it is
-	 */
+	public void setFloor(int floor) {
+		this.floor = floor;
+	}
+
 	public String getType() {
 		return type;
 	}
 
-	/**
-	 * @return sq
-	 * gives the square foot-age of the property 
-	 */
-	public double getSq() {
-		return sq;
-	}
-
-	/**
-	 * @return features
-	 * gives the details of the building 
-	 */
-	public ArrayList<String> getFeatures() {
-		return features;
-	}
-
-	/**
-	 * @return price
-	 * gives a price for the building 
-	 */
-	public boolean getAppraised() {
-		return appraised;
-	}
-	
-	/**
-	 * @return price
-	 * gives a price for the building 
-	 */
-	public boolean getSold() {
-		return sold;
-	}
-	
-	/**
-	 * @return price
-	 * gives a price for the building 
-	 */
 	public double getPrice() {
 		return price;
 	}
-	
-	/**
-	 * @return location
-	 * gives a price for the building 
-	 */
+
+	public int getSquareFt() {
+		return squareFt;
+	}
+
+	public int getRoom() {
+		return room;
+	}
+
+	public int getBathroom() {
+		return bathroom;
+	}
+
 	public String getLocation() {
 		return location;
 	}
-	
-	/**
-	 * @param a
-	 * sets the appraised field
-	 */
-	public void setAppraised(boolean a){
-		appraised = a;
-	}
-	
-	/**
-	 * @param a
-	 * sets the sold field
-	 */
-	public void setSold(boolean a){
-		sold = a;
-	}
-	
-	/**
-	 * @param f
-	 * adds a string being a feature of the building 
-	 */
-	public void addFeature(String f){
-		features.add(f);
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setSquareFt(int squareFt) {
+		this.squareFt = squareFt;
+	}
+
+	public void setRoom(int room) {
+		this.room = room;
+	}
+
+	public void setBathroom(int bathroom) {
+		this.bathroom = bathroom;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	
 }
+
