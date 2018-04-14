@@ -1,4 +1,7 @@
 import java.awt.BorderLayout;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import javax.swing.*;
 
@@ -13,10 +16,22 @@ public class Appraise extends JFrame{
 	private JButton list;
 	private JPanel tPanel;
 	private JPanel bPanel;
+	private BuildingReader br;
+	private double price;
+	
+	private String type;
+	private int room;
+	private int squareft;
+	private int bathroomNum;
+	private int floorsNum;
+	private String locationNum;
 	
 	public Appraise() {
 		super("Real Estate Project");
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		br = new BuildingReader();
+		price = 0;
+		
 		setUpTextField();
 		setUpButtonPanel();
 		
@@ -75,17 +90,42 @@ public class Appraise extends JFrame{
 	public void setUpButtonPanel() {
 		bPanel = new JPanel();
 		appraise = new JButton("Appraise");
+		appraise.addActionListener(e -> appraiseHouse());
 		list = new JButton("List");
+		list.addActionListener(e -> {
+			try {
+				listHouse();
+			} catch (IOException e1) {
+			}
+		});
 		
 		bPanel.add(appraise);
 		bPanel.add(list);
 	}
 	
 	public void appraiseHouse() {
+		ArrayList<Building> buildings = br.getBuildings("buildings");
+		type = houseType.getText().trim();
+		room = Integer.parseInt(numRoom.getText());
+		squareft = Integer.parseInt(squareFt.getText());
+		bathroomNum = Integer.parseInt(bathroom.getText());;
+		floorsNum = Integer.parseInt(floors.getText());;
+		locationNum = location.getText().trim();
+		
+		price = buildings.stream()
+			.filter(house -> type.equalsIgnoreCase(house.getType()))
+			.filter(building -> room == building.getRoom())
+			.filter(size -> ((squareft + 300) < size.getSquareFt()) && ((squareft - 300) < size.getSquareFt()))
+			.filter(bath -> bath.getBathroom() == bathroomNum)
+			.filter(fl -> fl.getFloor() == floorsNum)
+			.filter(loc -> loc.getLocation().equals(locationNum))
+			.collect(Collectors.averagingDouble(Building::getPrice));
 		
 	}
 	
-	public void listHouse() {
-		
+	public void listHouse() throws IOException {
+		if(price != 0) {
+			br.addBuilding("buildings.csv", new Building(type, price, squareft, floorsNum, room, bathroomNum, locationNum));
+		}
 	}
 }
