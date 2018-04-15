@@ -27,6 +27,10 @@ public class Search
 	private JRadioButton bedButton3;
 	private JRadioButton bedButton2;
 	private JRadioButton bedButton1;
+	private JRadioButton bathButton4;
+	private JRadioButton bathButton3;
+	private JRadioButton bathButton2;
+	private JRadioButton bathButton1;
 	
 	private int floorNum = 0;
 	
@@ -64,56 +68,69 @@ public class Search
 	    //Buttons for number of bedrooms
 	    bedButton4 = new JRadioButton("4+ Beds");
 		bedButton4.setFont(new Font("Century", Font.BOLD, 18));
-		floorButton4.addItemListener(y -> bedStateChanged(y));
+		bedButton4.addItemListener(y -> bedStateChanged(y));
 		
 		bedButton3 = new JRadioButton("3 Beds");
 		bedButton3.setFont(new Font("Century", Font.BOLD, 18));
-		floorButton4.addItemListener(y -> bedStateChanged(y));
+		bedButton3.addItemListener(y -> bedStateChanged(y));
 	    
 	    bedButton2 = new JRadioButton("2 Beds");
 		bedButton2.setFont(new Font("Century", Font.BOLD, 18));
-		floorButton4.addItemListener(y -> bedStateChanged(y));
+		bedButton2.addItemListener(y -> bedStateChanged(y));
 	    
 	    bedButton1 = new JRadioButton("1 Bed");
 		bedButton1.setFont(new Font("Century", Font.BOLD, 18));
-		floorButton4.addItemListener(y -> bedStateChanged(y));
+		bedButton1.addItemListener(y -> bedStateChanged(y));
 	    
 	    //Buttons for number of bathrooms
-	    JRadioButton bathButton4 = new JRadioButton("4+ Bathrooms");
+	    bathButton4 = new JRadioButton("4+ Bathrooms");
 		bathButton4.setFont(new Font("Century", Font.BOLD, 18));
-	    bathButton4.setSelected(true);
+		bathButton4.addItemListener(z -> bathStateChanged(z));
 	    
-	    JRadioButton bathButton3 = new JRadioButton("3 Bathrooms");
+	    bathButton3 = new JRadioButton("3 Bathrooms");
 		bathButton3.setFont(new Font("Century", Font.BOLD, 18));
-	    bathButton3.setSelected(true);
+		bathButton3.addItemListener(z -> bathStateChanged(z));
 	    
-	    JRadioButton bathButton2 = new JRadioButton("2 Bathrooms");
+	    bathButton2 = new JRadioButton("2 Bathrooms");
 		bathButton2.setFont(new Font("Century", Font.BOLD, 18));
-	    bathButton2.setSelected(true);
+		bathButton2.addItemListener(z -> bathStateChanged(z));
 	    
-	    JRadioButton bathButton1 = new JRadioButton("1 Bathrooms");
+	    bathButton1 = new JRadioButton("1 Bathrooms");
 		bathButton1.setFont(new Font("Century", Font.BOLD, 18));
-	    bathButton1.setSelected(true);
-	    
-	    //Buttons for number of bathrooms
-	    JRadioButton housetypeButton4 = new JRadioButton("4+ Bathrooms");
-		bathButton4.setFont(new Font("Century", Font.BOLD, 18));
-	    bathButton4.setSelected(true);
+		bathButton1.addItemListener(z -> bathStateChanged(z));
 	    
 	    //Group the radio buttons.
 	    ButtonGroup floor = new ButtonGroup();
+	    JPanel pFloor = new JPanel();
+	    pFloor.setLayout(new GridLayout(4,1));
+	    pFloor.add(floorButton4);
+	    pFloor.add(floorButton3);
+	    pFloor.add(floorButton2);
+	    pFloor.add(floorButton1);
 	    floor.add(floorButton4);
 	    floor.add(floorButton3);
 	    floor.add(floorButton2);
 	    floor.add(floorButton1);
 	
 	    ButtonGroup bed = new ButtonGroup();
+	    JPanel pBed = new JPanel();
+	    pBed.setLayout(new GridLayout(4,1));
+	    pBed.add(bedButton4);
+	    pBed.add(bedButton3);
+	    pBed.add(bedButton2);
+	    pBed.add(bedButton1);
 	    bed.add(bedButton4);
 	    bed.add(bedButton3);
 	    bed.add(bedButton2);
 	    bed.add(bedButton1);
 	    
 	    ButtonGroup bath = new ButtonGroup();
+	    JPanel pBath = new JPanel();
+	    pBath.setLayout(new GridLayout(4,1));
+	    pBath.add(bathButton4);
+	    pBath.add(bathButton3);
+	    pBath.add(bathButton2);
+	    pBath.add(bathButton1);
 	    bath.add(bathButton4);
 	    bath.add(bathButton3);
 	    bath.add(bathButton2);
@@ -123,20 +140,10 @@ public class Search
 	    
 	    
 	    //Add groups
-	    radioButtonPanel.add(floorButton4, BorderLayout.WEST);
-	    radioButtonPanel.add(floorButton3, BorderLayout.WEST);
-	    radioButtonPanel.add(floorButton2, BorderLayout.WEST);
-	    radioButtonPanel.add(floorButton1, BorderLayout.WEST);
-	    
-	    radioButtonPanel.add(bedButton4, BorderLayout.CENTER);
-	    radioButtonPanel.add(bedButton3, BorderLayout.CENTER);
-	    radioButtonPanel.add(bedButton2, BorderLayout.CENTER);
-	    radioButtonPanel.add(bedButton1, BorderLayout.CENTER);
-	    
-	    radioButtonPanel.add(bathButton4, BorderLayout.EAST);
-	    radioButtonPanel.add(bathButton3, BorderLayout.EAST);
-	    radioButtonPanel.add(bathButton2, BorderLayout.EAST);
-	    radioButtonPanel.add(bathButton1, BorderLayout.EAST);		
+	    radioButtonPanel.setLayout(new GridLayout(1,3));
+	    radioButtonPanel.add(pFloor, BorderLayout.WEST);
+	    radioButtonPanel.add(pBed, BorderLayout.CENTER);
+	    radioButtonPanel.add(pBath, BorderLayout.EAST);		
 	}
 	
 	public JPanel bPanelReturn() {
@@ -209,6 +216,35 @@ public class Search
 	        	value = 2;
 	        }
 	        if(bedButton1.isSelected())
+	        {
+	        	System.out.println("1");
+	        	value = 1;
+	        }
+	    }
+	    return value;
+	}
+	
+	public int bathStateChanged(ItemEvent e) 
+	{
+		int value = 0;
+	    if (e.getStateChange() == ItemEvent.SELECTED) 
+	    {
+	        if(bathButton4.isSelected())
+	        {
+	        	System.out.println("4");
+	        	value = 4;
+	        }
+	        if(bathButton3.isSelected())
+	        {
+	        	System.out.println("3");
+	        	value = 3;
+	        }
+	        if(bathButton2.isSelected())
+	        {
+	        	System.out.println("2");
+	        	value = 2;
+	        }
+	        if(bathButton1.isSelected())
 	        {
 	        	System.out.println("1");
 	        	value = 1;
