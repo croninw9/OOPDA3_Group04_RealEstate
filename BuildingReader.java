@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class BuildingReader {
 	// How many fields are expected.
-    private static final int NUMBER_OF_FIELDS = 6;
+    private static final int NUMBER_OF_FIELDS = 7;
     // Index values for the fields in each record.
     private static final int TYPE = 0,
                              PRICE = 1,

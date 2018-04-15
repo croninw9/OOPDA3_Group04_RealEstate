@@ -25,11 +25,14 @@ public class Appraise extends JFrame{
 	private int bathroomNum;
 	private int floorsNum;
 	private String locationNum;
+
+	private ArrayList<Building> buildings;
 	
 	public Appraise() {
 		super("Real Estate Project");
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		br = new BuildingReader();
+		buildings = br.getBuildings("buildings.csv");
 		price = 0;
 		
 		setUpTextField();
@@ -104,7 +107,7 @@ public class Appraise extends JFrame{
 	}
 	
 	public void appraiseHouse() {
-		ArrayList<Building> buildings = br.getBuildings("buildings");
+		 
 		type = houseType.getText().trim();
 		room = Integer.parseInt(numRoom.getText());
 		squareft = Integer.parseInt(squareFt.getText());
@@ -112,14 +115,9 @@ public class Appraise extends JFrame{
 		floorsNum = Integer.parseInt(floors.getText());;
 		locationNum = location.getText().trim();
 		
-		price = buildings.stream()
-			.filter(house -> type.equalsIgnoreCase(house.getType()))
-			.filter(building -> room == building.getRoom())
-			.filter(size -> ((squareft + 300) < size.getSquareFt()) && ((squareft - 300) < size.getSquareFt()))
-			.filter(bath -> bath.getBathroom() == bathroomNum)
-			.filter(fl -> fl.getFloor() == floorsNum)
-			.filter(loc -> loc.getLocation().equals(locationNum))
-			.collect(Collectors.averagingDouble(Building::getPrice));
+		price = ((avgType() + avgRoom() + avgSize() + avgBath() + avgFloor() + avgLocation())/6);
+		System.out.println(price);
+		System.out.println(type + room + squareft + bathroomNum + floorsNum + locationNum);
 		
 	}
 	
@@ -127,5 +125,37 @@ public class Appraise extends JFrame{
 		if(price != 0) {
 			br.addBuilding("buildings.csv", new Building(type, price, squareft, floorsNum, room, bathroomNum, locationNum));
 		}
+	}
+	
+	private double avgType() {
+		return buildings.stream()
+				.filter(house -> type.equalsIgnoreCase(house.getType()))
+				.collect(Collectors.averagingDouble(Building::getPrice));
+	}
+	
+	private double avgRoom() {
+		return buildings.stream()
+				.filter(building -> room == building.getRoom())
+				.collect(Collectors.averagingDouble(Building::getPrice));
+	}
+	private double avgSize() {
+		return buildings.stream()
+				.filter(size -> ((squareft + 300) < size.getSquareFt()) && ((squareft - 300) < size.getSquareFt()))
+				.collect(Collectors.averagingDouble(Building::getPrice));
+	}
+	private double avgBath() {
+		return buildings.stream()
+				.filter(bath -> bath.getBathroom() == bathroomNum)
+				.collect(Collectors.averagingDouble(Building::getPrice));
+	}
+	private double avgFloor() {
+		return buildings.stream()
+				.filter(fl -> fl.getFloor() == floorsNum)
+				.collect(Collectors.averagingDouble(Building::getPrice));
+	}
+	private double avgLocation() {
+		return buildings.stream()
+				.filter(loc -> loc.getLocation().equals(locationNum))
+				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
 }
