@@ -1,6 +1,12 @@
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
+
 import javax.imageio.*;
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
+
 import java.util.ArrayList;
 
 public class GUI extends JFrame
@@ -10,7 +16,8 @@ public class GUI extends JFrame
 	private JLabel image;
 	private JButton next;
 	private JButton previous;
-	private JButton appraise;
+	
+	public Search search;
 	
 	private JPanel textPanel;
 	private JScrollPane textPane;
@@ -19,13 +26,24 @@ public class GUI extends JFrame
 	private static final int IMAGE_WIDTH = 1200;
 	private static final int IMAGE_HEIGHT = 800;
 	
+	private JMenuBar menubar;
+	
+
+	private int bedNum = 0;
+	private int bathNum = 0;
+	private int sqft = 0;
+	private int price = 0;
+	private String typeOFHouse;
+	private String Location;
 	
 	public GUI() 
 	{
 		super("Real Estate Project");
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		search = new Search();
 		buildButtonPanel();
 		buildTextPanel();
+		buildMenuBar();
 		setUp();
 		add(imagePanel, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
@@ -33,6 +51,58 @@ public class GUI extends JFrame
 		setVisible(true);
 	}
 
+	/**
+     * Create the main frame's menu bar.
+     * @param frame   The frame that the menu bar should be added to.
+     */
+    private void buildMenuBar()
+    {
+        menubar = new JMenuBar();
+        setJMenuBar(menubar);
+        
+        Font f = new Font("Century", Font.BOLD, 24);
+        UIManager.put("Menu.font", f);
+        
+        JMenu spacer = new JMenu();
+
+        //disable the spacer so that it doesn't behave
+        //like a menu item
+        spacer.setEnabled(false);
+
+      	//Java components are weird. Set all three to
+      	//guarantee that size is used
+      	spacer.setMinimumSize(new Dimension(450, 1));
+      	spacer.setPreferredSize(new Dimension(450, 1));
+      	spacer.setMaximumSize(new Dimension(450, 1));
+
+      	//add the spacer to your JMenuBar
+      	menubar.add(spacer);
+        
+      	 //Creates the List Menu - brings back to main menu
+        JMenu homeMenu = new JMenu("Home");
+        homeMenu.addMenuListener(new Home());
+        menubar.add(homeMenu);
+      	
+        menubar.add(new JMenu("			"));
+        
+        //create the Search menu - filters out different houses
+        JMenu searchMenu = new JMenu("Search");
+        searchMenu.addMenuListener(new SearchBar());
+        menubar.add(searchMenu);
+        
+        menubar.add(new JMenu("			"));
+        
+        //Creates the Appraise menu - Appraises house
+        JMenu appraiseMenu = new JMenu("Appraise");
+        menubar.add(appraiseMenu);
+    }
+
+    
+
+    
+    /**
+     * Builds the Text Panel
+     */
 	private void buildTextPanel() 
 	{
 		summary = new JTextArea();
@@ -46,10 +116,12 @@ public class GUI extends JFrame
 	private void setSummary()
 	{
 		summary.setText("");
+		summary.setSize(100, 800);
 		summary.append("Summary of House:"
 				+ "\n Floors: 4"
 				+ "\n Beds: 4"
-				+ "\n Baths : 2.5 ");
+				+ "\n Baths : 2.5 "
+				+ "\n Garage : Yes");
 		summary.setFont(new Font("Century", Font.BOLD, 16));
         summary.setForeground(new Color(102, 205, 170));
         summary.setBackground(new Color(47, 79, 79));
@@ -59,14 +131,6 @@ public class GUI extends JFrame
 	{
 		setResizable(true);
 		setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
-		
-		JPanel heading = new JPanel();
-		JLabel title = new JLabel("House");
-		heading.add(title);
-        title.setFont(new Font("Century", Font.BOLD, 24));
-        title.setForeground(new Color(102, 205, 170));
-        heading.setBackground(new Color(47, 79, 79));
-        this.getContentPane().add(heading, BorderLayout.NORTH);
 		
 		imagePanel = new DrawPanel();
 		imagePanel.setBackground(Color.GRAY);
@@ -83,9 +147,6 @@ public class GUI extends JFrame
 		previous = new JButton("Previous House");
 		buttonPanel.add(previous);
 		
-		appraise = new JButton("Appraise House");
-		buttonPanel.add(appraise);
-		
 		next = new JButton("Next House");
 		buttonPanel.add(next);
 		
@@ -93,7 +154,6 @@ public class GUI extends JFrame
 		
 		next.addActionListener(e -> nextImage());
 		previous.addActionListener(e -> previousImage());
-		appraise.addActionListener(e -> appriaseHouse());
 	}
 
 	private void setFont() 
@@ -103,11 +163,6 @@ public class GUI extends JFrame
         previous.setFocusPainted(false);
         previous.setFont(new Font("Century", Font.BOLD, 18));
         
-        appraise.setBackground(new Color(47, 79, 79));
-        appraise.setForeground(new Color(102, 205, 170));
-        appraise.setFocusPainted(false);
-        appraise.setFont(new Font("Century", Font.BOLD, 18));
-        
         next.setBackground(new Color(47, 79, 79));
         next.setForeground(new Color(102, 205, 170));
         next.setFocusPainted(false);
@@ -116,18 +171,13 @@ public class GUI extends JFrame
         buttonPanel.setBackground(new Color(47, 79, 79));
 	}
 
-	private Object appriaseHouse() {
-		// TODO Auto-generated method stub
+	private Object previousImage() 
+	{
 		return null;
 	}
 
-	private Object previousImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private Object nextImage() {
-		// TODO Auto-generated method stub
+	private Object nextImage() 
+	{
 		return null;
 	}
 	
@@ -153,6 +203,68 @@ public class GUI extends JFrame
 		}
 	}
 	
+	public class SearchBar implements MenuListener
+	{
+		//Search search = new Search();
+		@Override
+	    public void menuSelected(MenuEvent e) 
+		{
+			//remove all the previous panels
+			remove(imagePanel);
+			remove(buttonPanel);
+			remove(textPanel);
+			//add appraisal panels
+			setVisible(false);
+			 
+			add(search.radioButtonReturn(), BorderLayout.CENTER);
+			add(search.bPanelReturn(), BorderLayout.SOUTH);
+			setVisible(true);
+	    }
+		
+		@Override
+	    public void menuDeselected(MenuEvent e) 
+	    {
+	    	//System.out.println("menuDeselected");
+	    }
+
+	    @Override
+	    public void menuCanceled(MenuEvent e) 
+	    {
+	        //System.out.println("menuCanceled");
+	    }
+	}
+
+	public class Home implements MenuListener
+    {
+		//Search search = new Search();
+		@Override
+		public void menuSelected(MenuEvent e) 
+		{
+			remove(search.radioButtonReturn());
+			remove(search.bPanelReturn());
+			//add appraisal panels
+			setVisible(false);
+	    	
+	    	add(imagePanel, BorderLayout.CENTER);
+			add(buttonPanel, BorderLayout.SOUTH);
+			add(textPanel, BorderLayout.EAST);
+			setVisible(true);			
+		}
+    	
+		@Override
+		public void menuCanceled(MenuEvent e) 
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void menuDeselected(MenuEvent e) 
+		{
+			// TODO Auto-generated method stub
+			
+		}    	
+    }
 }
 
 
