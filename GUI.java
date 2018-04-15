@@ -18,29 +18,23 @@ public class GUI extends JFrame
 	private JButton previous;
 	
 	public Search search;
+	public Appraise appraisal;
 	
 	private JPanel textPanel;
 	private JScrollPane textPane;
 	private JTextArea summary;
 	
-	private static final int IMAGE_WIDTH = 1200;
-	private static final int IMAGE_HEIGHT = 800;
+	private static final int IMAGE_WIDTH = 1700;
+	private static final int IMAGE_HEIGHT = 1000;
 	
 	private JMenuBar menubar;
-	
-
-	private int bedNum = 0;
-	private int bathNum = 0;
-	private int sqft = 0;
-	private int price = 0;
-	private String typeOFHouse;
-	private String Location;
 	
 	public GUI() 
 	{
 		super("Real Estate Project");
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		search = new Search();
+		appraisal = new Appraise();
 		buildButtonPanel();
 		buildTextPanel();
 		buildMenuBar();
@@ -71,9 +65,9 @@ public class GUI extends JFrame
 
       	//Java components are weird. Set all three to
       	//guarantee that size is used
-      	spacer.setMinimumSize(new Dimension(450, 1));
-      	spacer.setPreferredSize(new Dimension(450, 1));
-      	spacer.setMaximumSize(new Dimension(450, 1));
+      	spacer.setMinimumSize(new Dimension(900, 1));
+      	spacer.setPreferredSize(new Dimension(900, 1));
+      	spacer.setMaximumSize(new Dimension(900, 1));
 
       	//add the spacer to your JMenuBar
       	menubar.add(spacer);
@@ -94,11 +88,9 @@ public class GUI extends JFrame
         
         //Creates the Appraise menu - Appraises house
         JMenu appraiseMenu = new JMenu("Appraise");
+        appraiseMenu.addMenuListener(new Appraisal());
         menubar.add(appraiseMenu);
     }
-
-    
-
     
     /**
      * Builds the Text Panel
@@ -205,7 +197,6 @@ public class GUI extends JFrame
 	
 	public class SearchBar implements MenuListener
 	{
-		//Search search = new Search();
 		@Override
 	    public void menuSelected(MenuEvent e) 
 		{
@@ -213,7 +204,8 @@ public class GUI extends JFrame
 			remove(imagePanel);
 			remove(buttonPanel);
 			remove(textPanel);
-			//add appraisal panels
+			remove(appraisal.bPanelReturn());
+			remove(appraisal.tPanelReturn());
 			setVisible(false);
 			 
 			add(search.radioButtonReturn(), BorderLayout.CENTER);
@@ -242,7 +234,8 @@ public class GUI extends JFrame
 		{
 			remove(search.radioButtonReturn());
 			remove(search.bPanelReturn());
-			//add appraisal panels
+			remove(appraisal.bPanelReturn());
+			remove(appraisal.tPanelReturn());
 			setVisible(false);
 	    	
 	    	add(imagePanel, BorderLayout.CENTER);
@@ -265,6 +258,37 @@ public class GUI extends JFrame
 			
 		}    	
     }
+	
+	public class Appraisal implements MenuListener
+    {
+		//Search search = new Search();
+		@Override
+		public void menuSelected(MenuEvent e) 
+		{
+			remove(search.radioButtonReturn());
+			remove(search.bPanelReturn());
+	    	remove(imagePanel);
+			remove(buttonPanel);
+			remove(textPanel);
+			setVisible(false);
+
+			add(appraisal.bPanelReturn(), BorderLayout.SOUTH);
+			add(appraisal.tPanelReturn(), BorderLayout.CENTER);
+			setVisible(true);			
+		}
+
+		@Override
+		public void menuCanceled(MenuEvent e) 
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void menuDeselected(MenuEvent e) 
+		{
+			// TODO Auto-generated method stub
+			
+		}    	
+    }
 }
-
-

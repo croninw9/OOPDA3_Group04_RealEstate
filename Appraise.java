@@ -5,7 +5,8 @@ import java.util.stream.Collectors;
 
 import javax.swing.*;
 
-public class Appraise extends JFrame{
+public class Appraise
+{
 	private JTextField houseType;
 	private JTextField numRoom;
 	private JTextField squareFt;
@@ -28,21 +29,15 @@ public class Appraise extends JFrame{
 
 	private ArrayList<Building> buildings;
 	
-	public Appraise() {
-		super("Real Estate Project");
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	public Appraise() 
+	{
+
 		br = new BuildingReader();
 		buildings = br.getBuildings("buildings.csv");
 		price = 0;
 		
 		setUpTextField();
 		setUpButtonPanel();
-		
-		add(tPanel, BorderLayout.CENTER);
-		add(bPanel, BorderLayout.SOUTH);
-		
-		pack();
-		this.setVisible(true);
 	}
 	
 	public void setUpTextField() {
@@ -157,5 +152,15 @@ public class Appraise extends JFrame{
 		return buildings.stream()
 				.filter(loc -> loc.getLocation().equals(locationNum))
 				.collect(Collectors.averagingDouble(Building::getPrice));
+	}
+	
+	public JPanel bPanelReturn() 
+	{
+		return bPanel;
+	}
+	
+	public JPanel tPanelReturn() 
+	{
+		return tPanel;
 	}
 }
