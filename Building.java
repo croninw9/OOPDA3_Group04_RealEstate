@@ -80,6 +80,13 @@ public class Building {
 		this.location = location;
 	}
 	
+	public String getDetails(){
+		return "Type: " + type + "\n" + "Price: " +price + "\n" + 
+				"Square Feet: " + squareFt + "\n" + "Floors: " + floor +  "\n" + 
+				"Room: " + room + "\n" + "Bathrooms: " + bathroom +
+				"\n" + "Location: " + location;
+	}
+	
 	
 }
 
