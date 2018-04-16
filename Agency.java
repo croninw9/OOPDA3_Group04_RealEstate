@@ -24,7 +24,8 @@ public class Agency {
 			.forEach(building -> filteredB.add(building));
 	}
 	
-	public ArrayList<Building> getFilteredHouses(){
+	public ArrayList<Building> getFilteredHouses(String type, int room, int maxSq, int minSq, int bathNum, int floorNum, String locationString){
+		filter(type, room, maxSq, minSq, bathNum, floorNum, locationString);
 		return filteredB;
 	}
 	
