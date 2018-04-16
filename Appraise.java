@@ -1,11 +1,13 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import javax.swing.*;
 
-public class Appraise
+public class Appraise 
 {
 	private JTextField houseType;
 	private JTextField numRoom;
@@ -41,14 +43,18 @@ public class Appraise
 	}
 	
 	public void setUpTextField() {
-		houseType = new JTextField(20);
-		numRoom = new JTextField(20);
-		squareFt = new JTextField(20);
-		bathroom = new JTextField(20);
-		floors = new JTextField(20);
-		location = new JTextField(20);
+		houseType = new JTextField(30);
+		numRoom = new JTextField(30);
+		squareFt = new JTextField(30);
+		bathroom = new JTextField(30);
+		floors = new JTextField(30);
+		location = new JTextField(30);
 		
 		tPanel = new JPanel(new BorderLayout());
+		//getContentPane().setBackground(Color.black);
+		//tPanel.setBackground(new Color(47, 79, 79));
+
+		
 		JPanel north = new JPanel(new BorderLayout());
 		JPanel center = new JPanel(new BorderLayout());
 		JPanel houseP = new JPanel();
@@ -58,12 +64,35 @@ public class Appraise
 		JPanel floorsP = new JPanel();
 		JPanel locationP = new JPanel();
 		
-		houseP.add(new JLabel("Enter House Type: "));
-		roomP.add(new JLabel("Enter number of rooms:"));
-		squareFtP.add(new JLabel("Enter square feet:"));
-		bathroomP.add(new JLabel("Enter number of bathrooms:"));
-		floorsP.add(new JLabel("Enter number of floors:"));
-		locationP.add(new JLabel("Enter location (Town, State):"));
+		JLabel label1 = new JLabel("Enter House Type: ");
+		label1.setFont(new Font("Century", Font.BOLD, 20));
+		label1.setForeground(new Color(102, 205, 170));
+		houseP.add(label1);
+		
+		JLabel label2 = new JLabel("Enter amount of rooms: ");
+		label2.setFont(new Font("Century", Font.BOLD, 20));
+		label2.setForeground(new Color(102, 205, 170));
+		roomP.add(label2);
+		
+		JLabel label3 = new JLabel("Enter amount of square feet: ");
+		label3.setFont(new Font("Century", Font.BOLD, 20));
+		label3.setForeground(new Color(102, 205, 170));
+		squareFtP.add(label3);
+		
+		JLabel label4 = new JLabel("Enter number of bathrooms: ");
+		label4.setFont(new Font("Century", Font.BOLD, 20));
+		label4.setForeground(new Color(102, 205, 170));
+		bathroomP.add(label4);
+		
+		JLabel label5 = new JLabel("Enter amount of Floors: ");
+		label5.setFont(new Font("Century", Font.BOLD, 20));
+		label5.setForeground(new Color(102, 205, 170));
+		floorsP.add(label5);
+		
+		JLabel label6 = new JLabel("Enter location (Town, State):");
+		label6.setFont(new Font("Century", Font.BOLD, 20));
+		label6.setForeground(new Color(102, 205, 170));
+		locationP.add(label6);
 		
 		houseP.add(houseType);
 		roomP.add(numRoom);
@@ -80,7 +109,8 @@ public class Appraise
 		center.add(floorsP, BorderLayout.CENTER);
 		center.add(locationP, BorderLayout.SOUTH);
 		
-		
+		north.setBackground(new Color(47, 79, 79));
+		center.setBackground(new Color(47, 79, 79));
 		tPanel.add(north, BorderLayout.NORTH);
 		tPanel.add(center, BorderLayout.CENTER);
 	}
@@ -97,8 +127,25 @@ public class Appraise
 			}
 		});
 		
+		setFont();
+		
 		bPanel.add(appraise);
 		bPanel.add(list);
+	}
+	
+	private void setFont() 
+	{
+		appraise.setBackground(new Color(47, 79, 79));
+		appraise.setForeground(new Color(102, 205, 170));
+		appraise.setFocusPainted(false);
+		appraise.setFont(new Font("Century", Font.BOLD, 18));
+        
+        list.setBackground(new Color(47, 79, 79));
+        list.setForeground(new Color(102, 205, 170));
+        list.setFocusPainted(false);
+        list.setFont(new Font("Century", Font.BOLD, 18));
+        
+        bPanel.setBackground(new Color(47, 79, 79));
 	}
 	
 	public void appraiseHouse() {
