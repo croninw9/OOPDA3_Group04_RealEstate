@@ -31,10 +31,10 @@ public class BuildingReader {
      * @param filename The file to be read - should be in CSV format.
      * @return A list of Sightings.
      */
-    public ArrayList<Building> getBuildings(String filename)
+    public ArrayList<Residential> getBuildings(String filename)
     {
         // Create a Sighting from a CSV input line.
-        Function<String, Building> createBuilding = 
+        Function<String, Residential> createBuilding = 
             record -> {
                            String[] parts = record.split(",");
                            if(parts.length == NUMBER_OF_FIELDS) {
@@ -47,7 +47,7 @@ public class BuildingReader {
                                    int bathroom = Integer.parseInt(parts[BATHROOMNUMBER].trim());
                                    String location = parts[LOCATION].trim();
                                    String imageFile = parts[IMAGEFILE].trim();
-                                   return new Building(type, price, size, floor, room, bathroom, location, imageFile);
+                                   return new Residential(type, price, size, floor, room, bathroom, location, imageFile);
                                }
                                catch(NumberFormatException e) {
                                    System.out.println("Building record has a malformed integer: " + record);
@@ -59,7 +59,7 @@ public class BuildingReader {
                                return null;
                            }
                        };
-        ArrayList<Building> buildings;
+        ArrayList<Residential> buildings;
         try {
             buildings = Files.lines(Paths.get(filename))
                              .filter(record -> record.length() > 0 && record.charAt(0) != '#')
@@ -74,7 +74,7 @@ public class BuildingReader {
         return buildings;
     }
     
-    public void addBuilding(String fileName, Building building) throws IOException {
+    public void addBuilding(String fileName, Residential building) throws IOException {
     	FileWriter pw = new FileWriter(fileName, true);
         StringBuilder sb = new StringBuilder();
         
@@ -91,6 +91,8 @@ public class BuildingReader {
         sb.append(building.getBathroom());
         sb.append(',');
         sb.append(building.getLocation());
+        sb.append(',');
+        sb.append(building.getFileName());
 
         pw.write(sb.toString() + "\n");
         pw.close();

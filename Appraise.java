@@ -1,11 +1,13 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import javax.swing.*;
 
-public class Appraise extends JFrame{
+public class Appraise{
 	private JTextField houseType;
 	private JTextField numRoom;
 	private JTextField squareFt;
@@ -28,11 +30,9 @@ public class Appraise extends JFrame{
 	
 	private OpenImage openImage; 
 
-	private ArrayList<Building> buildings;
+	private ArrayList<Residential> buildings;
 	
 	public Appraise() {
-		super("Real Estate Project");
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		br = new BuildingReader();
 		buildings = br.getBuildings("buildings.csv");
 		openImage = new OpenImage();
@@ -40,22 +40,15 @@ public class Appraise extends JFrame{
 		
 		setUpTextField();
 		setUpButtonPanel();
-		
-		add(tPanel, BorderLayout.CENTER);
-		add(bPanel, BorderLayout.SOUTH);
-		add(openImage.getPanel(), BorderLayout.EAST);
-		
-		pack();
-		this.setVisible(true);
 	}
 	
 	public void setUpTextField() {
-		houseType = new JTextField(20);
-		numRoom = new JTextField(20);
-		squareFt = new JTextField(20);
-		bathroom = new JTextField(20);
-		floors = new JTextField(20);
-		location = new JTextField(20);
+		houseType = new JTextField(30);
+		numRoom = new JTextField(30);
+		squareFt = new JTextField(30);
+		bathroom = new JTextField(30);
+		floors = new JTextField(30);
+		location = new JTextField(30);
 		
 		tPanel = new JPanel(new BorderLayout());
 		JPanel north = new JPanel(new BorderLayout());
@@ -66,6 +59,36 @@ public class Appraise extends JFrame{
 		JPanel bathroomP = new JPanel();
 		JPanel floorsP = new JPanel();
 		JPanel locationP = new JPanel();
+		
+		JLabel label1 = new JLabel("Enter House Type: "); 
+		label1.setFont(new Font("Century", Font.BOLD, 20)); 
+		label1.setForeground(new Color(102, 205, 170)); 
+		houseP.add(label1); 
+		
+		JLabel label2 = new JLabel("Enter amount of rooms: "); 
+		label2.setFont(new Font("Century", Font.BOLD, 20)); 
+		label2.setForeground(new Color(102, 205, 170)); 
+		roomP.add(label2); 
+		
+		JLabel label3 = new JLabel("Enter amount of square feet: "); 
+		label3.setFont(new Font("Century", Font.BOLD, 20)); 
+		label3.setForeground(new Color(102, 205, 170)); 
+		squareFtP.add(label3); 
+		
+		JLabel label4 = new JLabel("Enter number of bathrooms: "); 
+		label4.setFont(new Font("Century", Font.BOLD, 20));
+		label4.setForeground(new Color(102, 205, 170)); 
+		bathroomP.add(label4); 
+		
+		JLabel label5 = new JLabel("Enter amount of Floors: "); 
+		label5.setFont(new Font("Century", Font.BOLD, 20)); 
+		label5.setForeground(new Color(102, 205, 170));
+		floorsP.add(label5);
+		
+		JLabel label6 = new JLabel("Enter location (Town, State):");
+		label6.setFont(new Font("Century", Font.BOLD, 20));
+		label6.setForeground(new Color(102, 205, 170));
+		locationP.add(label6);
 		
 		houseP.add(new JLabel("Enter House Type: "));
 		roomP.add(new JLabel("Enter number of rooms:"));
@@ -80,7 +103,7 @@ public class Appraise extends JFrame{
 		bathroomP.add(bathroom);
 		floorsP.add(floors);
 		locationP.add(location);
-		
+
 		north.add(houseP, BorderLayout.NORTH);
 		north.add(roomP, BorderLayout.CENTER);
 		north.add(squareFtP, BorderLayout.SOUTH);
@@ -88,8 +111,9 @@ public class Appraise extends JFrame{
 		center.add(bathroomP, BorderLayout.NORTH);
 		center.add(floorsP, BorderLayout.CENTER);
 		center.add(locationP, BorderLayout.SOUTH);
-		
-		
+
+		north.setBackground(new Color(47, 79, 79));
+		center.setBackground(new Color(47, 79, 79));
 		tPanel.add(north, BorderLayout.NORTH);
 		tPanel.add(center, BorderLayout.CENTER);
 	}
@@ -127,7 +151,7 @@ public class Appraise extends JFrame{
 	
 	public void listHouse() throws IOException {
 		if(price != 0) {
-			br.addBuilding("buildings.csv", new Building(type, price, squareft, floorsNum, room, bathroomNum, locationNum, openImage.getFileName()));
+			br.addBuilding("buildings.csv", new Residential(type, price, squareft, floorsNum, room, bathroomNum, locationNum, openImage.getFileName()));
 		}
 	}
 	
