@@ -90,12 +90,12 @@ public class Appraise{
 		label6.setForeground(new Color(102, 205, 170));
 		locationP.add(label6);
 		
-		houseP.add(new JLabel("Enter House Type: "));
-		roomP.add(new JLabel("Enter number of rooms:"));
-		squareFtP.add(new JLabel("Enter square feet:"));
-		bathroomP.add(new JLabel("Enter number of bathrooms:"));
-		floorsP.add(new JLabel("Enter number of floors:"));
-		locationP.add(new JLabel("Enter location (Town, State):"));
+		//houseP.add(new JLabel("Enter House Type: "));
+		//roomP.add(new JLabel("Enter number of rooms:"));
+		//squareFtP.add(new JLabel("Enter square feet:"));
+		//bathroomP.add(new JLabel("Enter number of bathrooms:"));
+		//floorsP.add(new JLabel("Enter number of floors:"));
+		//locationP.add(new JLabel("Enter location (Town, State):"));
 		
 		houseP.add(houseType);
 		roomP.add(numRoom);
@@ -112,8 +112,12 @@ public class Appraise{
 		center.add(floorsP, BorderLayout.CENTER);
 		center.add(locationP, BorderLayout.SOUTH);
 
-		north.setBackground(new Color(47, 79, 79));
-		center.setBackground(new Color(47, 79, 79));
+		houseP.setBackground(new Color(47, 79, 79));
+		roomP.setBackground(new Color(47, 79, 79));
+		squareFtP.setBackground(new Color(47, 79, 79));
+		bathroomP.setBackground(new Color(47, 79, 79));
+		floorsP.setBackground(new Color(47, 79, 79));
+		locationP.setBackground(new Color(47, 79, 79));
 		tPanel.add(north, BorderLayout.NORTH);
 		tPanel.add(center, BorderLayout.CENTER);
 	}

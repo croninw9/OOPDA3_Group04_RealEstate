@@ -190,12 +190,18 @@ public class GUI extends JFrame
 
 	private void previousImage() 
 	{
-		count--;
+		if(count > 0) {
+			count--;
+		}
+		setSummary(getResident());
 	}
 
 	private void nextImage() 
 	{
-		count++;
+		if(count < res.size()-1) {
+			count++;
+		}
+		setSummary(getResident());
 	}
 	
 	/**
