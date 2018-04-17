@@ -4,24 +4,30 @@ import java.util.ArrayList;
  * @author estradac3
  * Creates a generic building with common features and other characteristics
  */
-public class Building {
+public abstract class Building {
 
-	private String type;
 	private double price;
 	private int squareFt;
 	private int floor;
 	private int room;
-	private int bathroom;
 	private String location;
+	private String fileName;
 	
-	public Building(String type, double price, int squareFt, int floor, int room, int bathroom, String location) {
-		this.type = type;
+	public Building( double price, int squareFt, int floor, int room, String location, String fileName) {
 		this.price = price;
 		this.squareFt = squareFt;
 		this.floor = floor;
 		this.room = room;
-		this.bathroom = bathroom;
 		this.location = location;
+		this.fileName = fileName;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	public int getFloor() {
@@ -30,10 +36,6 @@ public class Building {
 
 	public void setFloor(int floor) {
 		this.floor = floor;
-	}
-
-	public String getType() {
-		return type;
 	}
 
 	public double getPrice() {
@@ -48,16 +50,8 @@ public class Building {
 		return room;
 	}
 
-	public int getBathroom() {
-		return bathroom;
-	}
-
 	public String getLocation() {
 		return location;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public void setPrice(double price) {
@@ -72,19 +66,8 @@ public class Building {
 		this.room = room;
 	}
 
-	public void setBathroom(int bathroom) {
-		this.bathroom = bathroom;
-	}
-
 	public void setLocation(String location) {
 		this.location = location;
-	}
-	
-	public String getDetails(){
-		return "Type: " + type + "\n" + "Price: " +price + "\n" + 
-				"Square Feet: " + squareFt + "\n" + "Floors: " + floor +  "\n" + 
-				"Room: " + room + "\n" + "Bathrooms: " + bathroom +
-				"\n" + "Location: " + location;
 	}
 	
 	

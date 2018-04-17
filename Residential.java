@@ -5,13 +5,18 @@ import java.util.ArrayList;
  */
 public class Residential extends Building
 {
-	int room;
-	int bathroom;
+	private int room;
+	private int bathroom;
+	private String type;
 	ArrayList<String>Features;
 	
-	public Residential(boolean upForSale, String type, double sq, double price, String loacation)
+	public Residential(double price, int squareFt, int floor, int room, String location, String fileName)
 	{
-		super();
+		super(price, squareFt, floor, room, location, fileName);
+	}
+	
+	public String getType() {
+		return type;
 	}
 	
 	//gets room and returns room
