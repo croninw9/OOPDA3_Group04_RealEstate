@@ -12,6 +12,7 @@ public abstract class Building {
 	private int room;
 	private String location;
 	private String fileName;
+	private ArrayList<String> features;
 	
 	public Building( double price, int squareFt, int floor, int room, String location, String fileName) {
 		this.price = price;
@@ -20,6 +21,11 @@ public abstract class Building {
 		this.room = room;
 		this.location = location;
 		this.fileName = fileName;
+		features = new ArrayList<>();
+	}
+	
+	public ArrayList<String> getFeatures(){
+		return features;
 	}
 
 	public String getFileName() {
