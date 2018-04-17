@@ -13,19 +13,42 @@ public class Agency {
 		buildings = new ArrayList<>();
 	}
 	
-	public void filter(String type, int room, int maxSq, int minSq, int bathNum, int floorNum, String locationString){
+	/**
+	 * filters for the filter menu option  
+	 * @param type
+	 * @param room
+	 * @param maxSq
+	 * @param minSq
+	 * @param bathNum
+	 * @param floorNum
+	 * @param locationString
+	 */
+	public void filter(String type, int room, int maxSq, int minSq, int priceMax, int priceMin, int bathNum, int floorNum, String locationString){
 		buildings.stream()
 			.filter(house -> type.equalsIgnoreCase(house.getType()))
 			.filter(building -> room == building.getRoom())
 			.filter(size -> size.getSquareFt() > minSq && size.getSquareFt() <= maxSq)
+			.filter(price -> price.getPrice() > priceMin && price.getPrice() <= priceMax)
 			.filter(bath -> bath.getBathroom() == bathNum)
 			.filter(floor -> floor.getFloor() == floorNum)
 			.filter(location -> location.getLocation() == locationString)
 			.forEach(building -> filteredB.add(building));
 	}
 	
-	public ArrayList<Building> getFilteredHouses(String type, int room, int maxSq, int minSq, int bathNum, int floorNum, String locationString){
-		filter(type, room, maxSq, minSq, bathNum, floorNum, locationString);
+	/**
+	 * filters and returns the array list of buildings/building that 
+	 * fit the parameters of the search
+	 * @param type
+	 * @param room
+	 * @param maxSq
+	 * @param minSq
+	 * @param bathNum
+	 * @param floorNum
+	 * @param locationString
+	 * @return
+	 */
+	public ArrayList<Building> getFilteredHouses(String type, int room, int maxSq, int minSq,int priceMax, int priceMin, int bathNum, int floorNum, String locationString){
+		filter(type, room, maxSq, minSq, priceMax, priceMin, bathNum, floorNum, locationString);
 		return filteredB;
 	}
 	
