@@ -186,4 +186,18 @@ public class Appraise{
 				.filter(loc -> loc.getLocation().equals(locationNum))
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
+	
+	public JPanel bPanelReturn()
+	{
+		return bPanel;
+	}
+	
+	public JPanel tPanelReturn()
+	{
+		return tPanel;
+	}
+	
+	public JPanel imagePanelReturn() {
+		return openImage.getPanel();
+	}
 }

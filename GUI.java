@@ -9,6 +9,11 @@ import javax.swing.event.MenuListener;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Will
+ *
+ */
 public class GUI extends JFrame
 {
 	private JPanel imagePanel;
@@ -23,6 +28,9 @@ public class GUI extends JFrame
 	private JPanel textPanel;
 	private JScrollPane textPane;
 	private JTextArea summary;
+	private BuildingReader br;
+	private ArrayList<Residential> res;
+	private int count = 0;
 	
 	private static final int IMAGE_WIDTH = 1700;
 	private static final int IMAGE_HEIGHT = 1000;
@@ -35,14 +43,33 @@ public class GUI extends JFrame
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		search = new Search();
 		appraisal = new Appraise();
+		res = new ArrayList<>();
+		br = new BuildingReader();
+		res = br.getBuildings("buildings.csv");
 		buildButtonPanel();
-		buildTextPanel();
+		//generateHome(getResident());
+		buildTextPanel(getResident());
 		buildMenuBar();
-		setUp();
+		setUp(getResident());
 		add(imagePanel, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
 		add(textPanel, BorderLayout.EAST);
 		setVisible(true);
+	}
+	
+	private Residential getResident()
+	{
+		return res.get(count);
+		//return residential object 
+	}
+
+	private void generateHome(Residential resident) 
+	{
+		ImageIcon imageIcon = new ImageIcon(resident.getFileName());
+        Image image = imageIcon.getImage();
+        Image newimg = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel("", new ImageIcon(newimg), JLabel.CENTER);
+        imagePanel.add(imageLabel, BorderLayout.CENTER);
 	}
 
 	/**
@@ -95,36 +122,34 @@ public class GUI extends JFrame
     /**
      * Builds the Text Panel
      */
-	private void buildTextPanel() 
+	private void buildTextPanel(Residential resident) 
 	{
 		summary = new JTextArea();
         textPane = new JScrollPane(summary);
         textPanel = new JPanel();
         textPanel.add(textPane);
-        setSummary();
+        setSummary(resident);
         textPanel.setBackground(new Color(47, 79, 79));
 	}
 
-	private void setSummary()
+	private void setSummary(Residential resident)
 	{
+		//FIX
 		summary.setText("");
 		summary.setSize(100, 800);
 		summary.append("Summary of House:"
-				+ "\n Floors: 4"
-				+ "\n Beds: 4"
-				+ "\n Baths : 2.5 "
-				+ "\n Garage : Yes");
+				+ resident.getDetails());
 		summary.setFont(new Font("Century", Font.BOLD, 16));
         summary.setForeground(new Color(102, 205, 170));
         summary.setBackground(new Color(47, 79, 79));
 	}
 
-	private void setUp() 
+	private void setUp(Residential resident) 
 	{
 		setResizable(true);
 		setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
 		
-		imagePanel = new DrawPanel();
+		imagePanel = new DrawPanel(resident);
 		imagePanel.setBackground(Color.GRAY);
 		this.getContentPane().add(imagePanel);
 	}
@@ -163,14 +188,14 @@ public class GUI extends JFrame
         buttonPanel.setBackground(new Color(47, 79, 79));
 	}
 
-	private Object previousImage() 
+	private void previousImage() 
 	{
-		return null;
+		count--;
 	}
 
-	private Object nextImage() 
+	private void nextImage() 
 	{
-		return null;
+		count++;
 	}
 	
 	/**
@@ -180,18 +205,26 @@ public class GUI extends JFrame
 	 */
 	class DrawPanel extends JPanel
 	{
-		public DrawPanel()
+		private Residential resident;
+		public DrawPanel(Residential resident)
 		{
 			setLayout(null);
+			this.resident = resident;
 		}
 		
 		public void paintComponent(Graphics g)
 		{
-			Image house = new ImageIcon("house.jpeg").getImage();
+			ImageIcon imageIcon = new ImageIcon(resident.getFileName());
+	        Image image = imageIcon.getImage();
+	        Image newimg = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+	        JLabel imageLabel = new JLabel("", new ImageIcon(newimg), JLabel.CENTER);
+	        imagePanel.add(imageLabel, BorderLayout.CENTER);
+			
+			/*Image house = new ImageIcon("house.jpeg").getImage();
 			image = new JLabel(new ImageIcon(house.getScaledInstance(IMAGE_WIDTH, IMAGE_HEIGHT, Image.SCALE_SMOOTH)));
 			image.setBounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
 			image.setLocation(0, 0);
-			add(image);
+			add(image);*/
 		}
 	}
 	
@@ -206,6 +239,7 @@ public class GUI extends JFrame
 			remove(textPanel);
 			remove(appraisal.bPanelReturn());
 			remove(appraisal.tPanelReturn());
+			remove(appraisal.imagePanelReturn());
 			setVisible(false);
 			 
 			add(search.radioButtonReturn(), BorderLayout.CENTER);
@@ -236,6 +270,7 @@ public class GUI extends JFrame
 			remove(search.bPanelReturn());
 			remove(appraisal.bPanelReturn());
 			remove(appraisal.tPanelReturn());
+			remove(appraisal.imagePanelReturn());
 			setVisible(false);
 	    	
 	    	add(imagePanel, BorderLayout.CENTER);
@@ -274,6 +309,7 @@ public class GUI extends JFrame
 
 			add(appraisal.bPanelReturn(), BorderLayout.SOUTH);
 			add(appraisal.tPanelReturn(), BorderLayout.CENTER);
+			add(appraisal.imagePanelReturn(), BorderLayout.EAST);
 			setVisible(true);			
 		}
 

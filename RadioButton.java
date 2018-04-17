@@ -75,28 +75,28 @@ public class RadioButton
 	    {
 	        if(button4.isSelected())
 	        {
-	        	System.out.println("4");
+	        	//System.out.println("4");
 	        	value = 4;
 	        }
 	        if(button3.isSelected())
 	        {
-	        	System.out.println("3");
+	        	//System.out.println("3");
 	        	value = 3;
 	        }
 	        if(button2.isSelected())
 	        {
-	        	System.out.println("2");
+	        	//System.out.println("2");
 	        	value = 2;
 	        }
 
 	        if(button1.isSelected())
 	        {
-	        	System.out.println("1");
+	        	//System.out.println("1");
 	        	value = 1;
 	        }
 	    	if(button0.isSelected())
 	        {
-	        	System.out.println("0");
+	        	//System.out.println("0");
 	        	value = 0;
 	        }
 	    }

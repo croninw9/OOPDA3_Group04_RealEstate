@@ -31,14 +31,20 @@ public class Residential extends Building
 		return (super.toString());
 	}
 	
-	public void getDetails() {
-		System.out.println(this.getType() + 
+	public String getDetails() {
+		return 				"\n Type: " + this.getType() + 
+							"\n" +
 							"\n Number of Floors: " + this.getFloor() +
+							"\n" +
 							"\n Number of Bathrooms: " + this.getBathroom() +
+							"\n" +
 							"\n Number of Rooms: " + this.getRoom() +
+							"\n" +
 							"\n Size of building: " + this.getSquareFt() + 
+							"\n" +
 							"\n Price of Building: " + this.getPrice() +
-							"\n Location: " + this.getLocation());
+							"\n" +
+							"\n Location: " + this.getLocation();
 	}
 	
 	
