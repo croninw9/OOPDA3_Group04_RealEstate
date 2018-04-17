@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class BuildingReader {
 	// How many fields are expected.
-    private static final int NUMBER_OF_FIELDS = 7;
+    private static final int NUMBER_OF_FIELDS = 8;
     // Index values for the fields in each record.
     private static final int TYPE = 0,
                              PRICE = 1,
@@ -16,7 +16,8 @@ public class BuildingReader {
                              FLOOR = 3,
                              ROOMNUMBER = 4,
     						 BATHROOMNUMBER = 5,
-    						 LOCATION = 6;
+    						 LOCATION = 6,
+    						 IMAGEFILE = 7;
     						
  public BuildingReader()
     {
@@ -45,7 +46,8 @@ public class BuildingReader {
                                    int room = Integer.parseInt(parts[ROOMNUMBER].trim());
                                    int bathroom = Integer.parseInt(parts[BATHROOMNUMBER].trim());
                                    String location = parts[LOCATION].trim();
-                                   return new Building(type, price, size, floor, room, bathroom, location);
+                                   String imageFile = parts[IMAGEFILE].trim();
+                                   return new Building(type, price, size, floor, room, bathroom, location, imageFile);
                                }
                                catch(NumberFormatException e) {
                                    System.out.println("Building record has a malformed integer: " + record);
