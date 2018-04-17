@@ -50,7 +50,8 @@ public class GUI extends JFrame
 		//generateHome(getResident());
 		buildTextPanel(getResident());
 		buildMenuBar();
-		setUp(getResident());
+		imagePanel = new JPanel();
+		generateHome(getResident());
 		add(imagePanel, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
 		add(textPanel, BorderLayout.EAST);
@@ -69,7 +70,10 @@ public class GUI extends JFrame
         Image image = imageIcon.getImage();
         Image newimg = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel("", new ImageIcon(newimg), JLabel.CENTER);
+        imagePanel.removeAll();
         imagePanel.add(imageLabel, BorderLayout.CENTER);
+        imagePanel.revalidate();
+        imagePanel.repaint();
 	}
 
 	/**
@@ -144,7 +148,7 @@ public class GUI extends JFrame
         summary.setBackground(new Color(47, 79, 79));
 	}
 
-	private void setUp(Residential resident) 
+	/*private void setUp(Residential resident) 
 	{
 		setResizable(true);
 		setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
@@ -152,7 +156,7 @@ public class GUI extends JFrame
 		imagePanel = new DrawPanel(resident);
 		imagePanel.setBackground(Color.GRAY);
 		this.getContentPane().add(imagePanel);
-	}
+	}*/
 
 	/**
 	 * Sets up the button and makes it so that when the button is pressed, the animation starts
@@ -194,6 +198,7 @@ public class GUI extends JFrame
 			count--;
 		}
 		setSummary(getResident());
+		generateHome(getResident());
 	}
 
 	private void nextImage() 
@@ -202,6 +207,7 @@ public class GUI extends JFrame
 			count++;
 		}
 		setSummary(getResident());
+		generateHome(getResident());
 	}
 	
 	/**
