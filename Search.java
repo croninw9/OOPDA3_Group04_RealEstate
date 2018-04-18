@@ -18,8 +18,8 @@ public class Search
 {
 	private JPanel buttonPanel2;
 	private JPanel radioButtonPanel;
-	//private JPanel heading;
 	private JTextArea textArea;
+	
 	private RadioButton floor;
 	private RadioButton bath;
 	private RadioButton bed;
@@ -27,9 +27,16 @@ public class Search
 	private RadioButton location;
 	private RadioButton size;
 	private RadioButton price;
+	
+	private BuildingReader br;
+	private ArrayList<Residential> res;
 
 	public Search()
 	{
+		res = new ArrayList<>();
+		br = new BuildingReader();
+		res = br.getBuildings("buildings.csv");
+		
 		buttonPanel2 = new JPanel();
 		
 		//heading = new JPanel(new GridLayout(7,1));
@@ -40,9 +47,14 @@ public class Search
         textArea.setBackground(new Color(47, 79, 79));
 		
 		JButton search = new JButton("Search");
+        search.setBackground(new Color(47, 79, 79));
+        search.setForeground(new Color(102, 205, 170));
+        search.setFocusPainted(false);
+        search.setFont(new Font("Century", Font.BOLD, 18));
 		search.addActionListener(a -> pressSearch());
 
 		buttonPanel2.add(search);
+		buttonPanel2.setBackground(new Color(47, 79, 79));
 		
 		radioButtonPanel = new JPanel(new GridLayout());
 		radioButtonPanel.setBackground(new Color(47, 79, 79));
@@ -87,12 +99,16 @@ public class Search
 	 * @param a 
 	 * 
 	 */
-    public void pressSearch() 
+    public void  pressSearch() 
     {
-    	Agency a1 = new Agency();
-    	a1.filter(type.getValue(), bed.getValue(), size.getValue(), bath.getValue(), floor.getValue(), location.getValue(), price.getValue());
-    	//public ArrayList<Residential> filter(int type, int room, int sqFt, int bathNum, int floorNum, int locNum, int price)
+    	Agency a1 = new Agency();    	
+    	res = a1.filter(type.getValue(), bed.getValue(), size.getValue(), bath.getValue(), floor.getValue(), location.getValue(), price.getValue());
+    	//public ArrayList<Residential> filter(int type, int room, int sqFt, int bathNum, int floorNum, int locNum, int price)   	
 	}
-
+    
+    public ArrayList<Residential> getSearch()
+    {
+    	return res;
+    }
 	
 }

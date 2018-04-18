@@ -24,6 +24,8 @@ public class GUI extends JFrame
 	private JButton rent;
 	private JButton buy;
 	
+	private boolean searchState;
+	
 	public Search search;
 	public Appraise appraisal;
 	
@@ -46,6 +48,7 @@ public class GUI extends JFrame
 		search = new Search();
 		appraisal = new Appraise();
 		res = new ArrayList<>();
+		//res = Search.res1;
 		br = new BuildingReader();
 		res = br.getBuildings("buildings.csv");
 		buildButtonPanel();
@@ -65,6 +68,11 @@ public class GUI extends JFrame
 	{
 		return res.get(count);
 		//return residential object 
+	}
+	
+	private void removeProperty()
+	{
+		res.remove(count);
 	}
 
 	private void generateHome(Residential resident) 
@@ -144,7 +152,7 @@ public class GUI extends JFrame
 		//FIX
 		summary.setText("");
 		summary.setSize(100, 800);
-		summary.append("Summary of House:"
+		summary.append("Summary of Property: "
 				+ resident.getDetails());
 		summary.setFont(new Font("Century", Font.BOLD, 16));
         summary.setForeground(new Color(102, 205, 170));
@@ -184,8 +192,8 @@ public class GUI extends JFrame
 		
 		next.addActionListener(e -> nextImage());
 		previous.addActionListener(e -> previousImage());
-		rent.addActionListener(e -> buyHouse());
-		buy.addActionListener(e -> rentProperty());
+		rent.addActionListener(e -> rentProperty());
+		buy.addActionListener(e -> buyHouse());
 	}
 
 	
@@ -235,12 +243,16 @@ public class GUI extends JFrame
 	
 	private void buyHouse() 
 	{
-		
+		removeProperty();
+		JOptionPane.showMessageDialog(null, "Thank you for buying this property");
+		//count = 0;
 	}
 
 	private void rentProperty() 
 	{
-		
+		removeProperty();
+		JOptionPane.showMessageDialog(null, "Thank you for renting this property");
+		//count = 0;
 	}
 	
 	public class SearchBar implements MenuListener
@@ -249,6 +261,8 @@ public class GUI extends JFrame
 	    public void menuSelected(MenuEvent e) 
 		{
 			//remove all the previous panels
+			searchState = true;
+			search = new Search();
 			remove(imagePanel);
 			remove(buttonPanel);
 			remove(textPanel);
@@ -282,6 +296,14 @@ public class GUI extends JFrame
 		@Override
 		public void menuSelected(MenuEvent e) 
 		{
+			if(searchState == true)
+			{
+				res = search.getSearch();
+			}
+			else
+			{
+				res = appraisal.getAppraise();
+			}
 			remove(search.radioButtonReturn());
 			remove(search.bPanelReturn());
 			remove(search.textAreaReturn());
@@ -317,6 +339,8 @@ public class GUI extends JFrame
 		@Override
 		public void menuSelected(MenuEvent e) 
 		{
+			appraisal = new Appraise();
+			searchState = false;
 			remove(search.radioButtonReturn());
 			remove(search.bPanelReturn());
 			remove(search.textAreaReturn());
@@ -326,8 +350,8 @@ public class GUI extends JFrame
 			setVisible(false);
 
 			add(appraisal.bPanelReturn(), BorderLayout.SOUTH);
-			add(appraisal.tPanelReturn(), BorderLayout.CENTER);
-			add(appraisal.imagePanelReturn(), BorderLayout.EAST);
+			add(appraisal.tPanelReturn(), BorderLayout.WEST);
+			add(appraisal.imagePanelReturn(), BorderLayout.CENTER);
 			setVisible(true);			
 		}
 
