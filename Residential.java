@@ -32,7 +32,8 @@ public class Residential extends Building
 	}
 	
 	public String getDetails() {
-		return 				"\n Type: " + this.getType() + 
+		return 				"\n" +
+							"\n Type: " + this.getType() + 
 							"\n" +
 							"\n Number of Floors: " + this.getFloor() +
 							"\n" +

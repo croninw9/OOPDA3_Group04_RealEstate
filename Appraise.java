@@ -32,7 +32,8 @@ public class Appraise{
 
 	private ArrayList<Residential> buildings;
 	
-	public Appraise() {
+	public Appraise() 
+	{
 		br = new BuildingReader();
 		buildings = br.getBuildings("buildings.csv");
 		openImage = new OpenImage();
@@ -133,6 +134,18 @@ public class Appraise{
 			} catch (IOException e1) {
 			}
 		});
+		
+		appraise.setBackground(new Color(47, 79, 79));
+        appraise.setForeground(new Color(102, 205, 170));
+        appraise.setFocusPainted(false);
+        appraise.setFont(new Font("Century", Font.BOLD, 18));
+        
+        list.setBackground(new Color(47, 79, 79));
+        list.setForeground(new Color(102, 205, 170));
+        list.setFocusPainted(false);
+        list.setFont(new Font("Century", Font.BOLD, 18));
+        
+        bPanel.setBackground(new Color(47, 79, 79));
 		
 		bPanel.add(appraise);
 		bPanel.add(list);

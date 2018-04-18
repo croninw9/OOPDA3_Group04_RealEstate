@@ -68,7 +68,7 @@ public class GUI extends JFrame
 	{
 		ImageIcon imageIcon = new ImageIcon(resident.getFileName());
         Image image = imageIcon.getImage();
-        Image newimg = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+        Image newimg = image.getScaledInstance(IMAGE_WIDTH, IMAGE_HEIGHT, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel("", new ImageIcon(newimg), JLabel.CENTER);
         imagePanel.removeAll();
         imagePanel.add(imageLabel, BorderLayout.CENTER);

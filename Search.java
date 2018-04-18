@@ -75,7 +75,7 @@ public class Search
     public void pressSearch() 
     {
     	Agency a1 = new Agency();
-    	a1.filter(type.getValue(), 0, size.getValue(), bath.getValue(), floor.getValue(), location.getValue(), price.getValue());
+    	a1.filter(type.getValue(), bed.getValue(), size.getValue(), bath.getValue(), floor.getValue(), location.getValue(), price.getValue());
     	//public ArrayList<Residential> filter(int type, int room, int sqFt, int bathNum, int floorNum, int locNum, int price)
 	}
 
