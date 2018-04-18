@@ -14,7 +14,7 @@ public abstract class Building {
 	private String fileName;
 	private  boolean rented;
 	
-	public Building(double price, int squareFt, int floor, int room, String location, String fileName, boolean rented) {
+	public Building(double price, int squareFt, int floor, int room, String location, String fileName) {
 		this.price = price;
 		this.squareFt = squareFt;
 		this.floor = floor;
