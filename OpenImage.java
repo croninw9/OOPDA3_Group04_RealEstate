@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.io.File;
 
@@ -12,17 +14,15 @@ import javax.swing.JPanel;
 public class OpenImage {
 	private JPanel imagePanel;
 	private JLabel imageLabel;
-	private JButton button;
 	private String filename;
 	
 	public OpenImage() {
-
-		button = new JButton("Press this to Find an Image");
-		button.addActionListener(e -> openImage());
-		imageLabel = new JLabel("Press the button to select an Image");
+		imageLabel = new JLabel("Press the button to select an Image", JLabel.CENTER);
+		imageLabel.setFont(new Font("Century", Font.BOLD, 18));
+		imageLabel.setForeground(new Color(102, 205, 170)); 
 		imagePanel = new JPanel(new BorderLayout());
-		imagePanel.add(imageLabel, BorderLayout.NORTH);
-		imagePanel.add(button, BorderLayout.SOUTH);
+		imagePanel.add(imageLabel, BorderLayout.CENTER);
+		imagePanel.setBackground(new Color(47, 79, 79));
 
 	}
 	
@@ -35,7 +35,8 @@ public class OpenImage {
             System.out.println(filename);
             ImageIcon imageIcon = new ImageIcon(filename);
             Image image = imageIcon.getImage();
-            Image newimg = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            Image newimg = image.getScaledInstance(900, 800, Image.SCALE_SMOOTH);
+            imagePanel.removeAll();
             imageLabel = new JLabel("", new ImageIcon(newimg), JLabel.CENTER);
             imagePanel.add(imageLabel, BorderLayout.CENTER);
             imagePanel.revalidate();
