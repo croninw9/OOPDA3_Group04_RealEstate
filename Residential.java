@@ -90,7 +90,7 @@ public class Residential extends Building {
 	public void getDetails() {
 		System.out.println(this.getType() + "\n Number of Floors: " + this.getFloor() + "\n Number of Bathrooms: "
 				+ this.getBathroom() + "\n Number of Rooms: " + this.getRoom() + "\n Size of building: "
-				+ this.getSquareFt() + "\n Price of Building: " + this.getPrice() + "\n Location: " + this.getLocation()
+				+ this.getSquareFt() + "\n Price of Building: $" + this.getPrice() + "\n Location: " + this.getLocation()
 				+ "\n Pool: " + isPool() + "\n Fireplace:  " + isFireplace() + "\n Garage: " + isGarage()
 				+ "\n Security: " + isSecurity() + "\n Backyard: " + isBackyard());
 	}
