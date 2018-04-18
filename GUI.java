@@ -46,7 +46,7 @@ public class GUI extends JFrame
 		super("Real Estate Project");
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		search = new Search();
-		appraisal = new Appraise();
+		appraisal = new Appraise("Jane Doe");
 		res = new ArrayList<>();
 		//res = Search.res1;
 		br = new BuildingReader();
