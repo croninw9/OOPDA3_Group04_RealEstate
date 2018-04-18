@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.swing.*;
 
 public class Appraise{
+	private String name;
 	private JTextField houseType;
 	private JTextField numRoom;
 	private JTextField squareFt;
@@ -15,6 +16,7 @@ public class Appraise{
 	private JTextField floors;
 	private JTextField location;
 	private JButton appraise;
+	private boolean appraised;
 	private JButton list;
 	private JPanel tPanel;
 	private JPanel bPanel;
@@ -41,6 +43,22 @@ public class Appraise{
 		
 		setUpTextField();
 		setUpButtonPanel();
+	}
+	
+	/**
+	 * returns String name
+	 * @return name
+	 */
+	public String getName(){
+		return name;
+	}
+	
+	/**
+	 * returns boolean appraised
+	 * @return appraised
+	 */
+	public boolean isAppraised(){
+		return appraised;
 	}
 	
 	public void setUpTextField() {
