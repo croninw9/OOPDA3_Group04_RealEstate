@@ -1,7 +1,10 @@
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.*;
 
@@ -15,6 +18,8 @@ public class Search
 {
 	private JPanel buttonPanel2;
 	private JPanel radioButtonPanel;
+	//private JPanel heading;
+	private JTextArea textArea;
 	private RadioButton floor;
 	private RadioButton bath;
 	private RadioButton bed;
@@ -26,6 +31,13 @@ public class Search
 	public Search()
 	{
 		buttonPanel2 = new JPanel();
+		
+		//heading = new JPanel(new GridLayout(7,1));
+		
+		textArea = new JTextArea("Floors	   Bedrooms	        Bathrooms	Type	Location	       SqFt	     Price");
+		textArea.setFont(new Font("Century", Font.BOLD, 28));
+        textArea.setForeground(new Color(102, 205, 170));
+        textArea.setBackground(new Color(47, 79, 79));
 		
 		JButton search = new JButton("Search");
 		search.addActionListener(a -> pressSearch());
@@ -55,6 +67,11 @@ public class Search
 	  
 	}
 	
+	public JTextArea textAreaReturn()
+	{
+		return textArea;
+	}
+	
 	public JPanel bPanelReturn() 
 	{
 		return buttonPanel2;
@@ -72,7 +89,9 @@ public class Search
 	 */
     public void pressSearch() 
     {
-    	floor.getValue();
+    	Agency a1 = new Agency();
+    	a1.filter(type.getValue(), bed.getValue(), size.getValue(), bath.getValue(), floor.getValue(), location.getValue(), price.getValue());
+    	//public ArrayList<Residential> filter(int type, int room, int sqFt, int bathNum, int floorNum, int locNum, int price)
 	}
 
 	

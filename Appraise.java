@@ -32,7 +32,8 @@ public class Appraise{
 
 	private ArrayList<Residential> buildings;
 	
-	public Appraise() {
+	public Appraise() 
+	{
 		br = new BuildingReader();
 		buildings = br.getBuildings("buildings.csv");
 		openImage = new OpenImage();
@@ -90,12 +91,12 @@ public class Appraise{
 		label6.setForeground(new Color(102, 205, 170));
 		locationP.add(label6);
 		
-		houseP.add(new JLabel("Enter House Type: "));
-		roomP.add(new JLabel("Enter number of rooms:"));
-		squareFtP.add(new JLabel("Enter square feet:"));
-		bathroomP.add(new JLabel("Enter number of bathrooms:"));
-		floorsP.add(new JLabel("Enter number of floors:"));
-		locationP.add(new JLabel("Enter location (Town, State):"));
+		//houseP.add(new JLabel("Enter House Type: "));
+		//roomP.add(new JLabel("Enter number of rooms:"));
+		//squareFtP.add(new JLabel("Enter square feet:"));
+		//bathroomP.add(new JLabel("Enter number of bathrooms:"));
+		//floorsP.add(new JLabel("Enter number of floors:"));
+		//locationP.add(new JLabel("Enter location (Town, State):"));
 		
 		houseP.add(houseType);
 		roomP.add(numRoom);
@@ -112,8 +113,12 @@ public class Appraise{
 		center.add(floorsP, BorderLayout.CENTER);
 		center.add(locationP, BorderLayout.SOUTH);
 
-		north.setBackground(new Color(47, 79, 79));
-		center.setBackground(new Color(47, 79, 79));
+		houseP.setBackground(new Color(47, 79, 79));
+		roomP.setBackground(new Color(47, 79, 79));
+		squareFtP.setBackground(new Color(47, 79, 79));
+		bathroomP.setBackground(new Color(47, 79, 79));
+		floorsP.setBackground(new Color(47, 79, 79));
+		locationP.setBackground(new Color(47, 79, 79));
 		tPanel.add(north, BorderLayout.NORTH);
 		tPanel.add(center, BorderLayout.CENTER);
 	}
@@ -129,6 +134,18 @@ public class Appraise{
 			} catch (IOException e1) {
 			}
 		});
+		
+		appraise.setBackground(new Color(47, 79, 79));
+        appraise.setForeground(new Color(102, 205, 170));
+        appraise.setFocusPainted(false);
+        appraise.setFont(new Font("Century", Font.BOLD, 18));
+        
+        list.setBackground(new Color(47, 79, 79));
+        list.setForeground(new Color(102, 205, 170));
+        list.setFocusPainted(false);
+        list.setFont(new Font("Century", Font.BOLD, 18));
+        
+        bPanel.setBackground(new Color(47, 79, 79));
 		
 		bPanel.add(appraise);
 		bPanel.add(list);
@@ -185,5 +202,19 @@ public class Appraise{
 		return buildings.stream()
 				.filter(loc -> loc.getLocation().equals(locationNum))
 				.collect(Collectors.averagingDouble(Building::getPrice));
+	}
+	
+	public JPanel bPanelReturn()
+	{
+		return bPanel;
+	}
+	
+	public JPanel tPanelReturn()
+	{
+		return tPanel;
+	}
+	
+	public JPanel imagePanelReturn() {
+		return openImage.getPanel();
 	}
 }

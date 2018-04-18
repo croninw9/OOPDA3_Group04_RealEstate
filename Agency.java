@@ -15,7 +15,8 @@ public class Agency {
 		buildings = br.getBuildings("buildings.csv");
 	}
 	
-	public ArrayList<Residential> filter(int type, int room, int sqFt, int bathNum, int floorNum, int locNum){
+	public ArrayList<Residential> filter(int type, int room, int sqFt, int bathNum, int floorNum, int locNum, int price)
+	{
 		if(type != 0) {
 			if(type == 1) {
 				filterType("House");
@@ -57,6 +58,22 @@ public class Agency {
 			else if(locNum == 4) {
 				filterLocation("Tampa");
 			}
+			
+			if(price != 0) 
+			{
+				if(price == 1) {
+					filterPrice(249999);
+				}
+				else if(price ==2) {
+					filterPrice(500000);
+				}
+				else if(price == 3) {
+					filterPrice(999999);
+				}
+				else if(price == 4) {
+					filterPrice(1000000);
+				}
+			}
 		}
 		return buildings;
 	}
@@ -96,4 +113,11 @@ public class Agency {
 				.filter(res -> res.getLocation().equalsIgnoreCase(Location))
 				.collect(Collectors.toCollection(ArrayList::new));
 	}
+	
+	public void filterPrice(int price) {
+		buildings = buildings.stream()
+				.filter(res -> res.getPrice() == price)
+				.collect(Collectors.toCollection(ArrayList::new));
+	}
+	
 }
