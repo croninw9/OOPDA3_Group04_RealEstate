@@ -21,6 +21,8 @@ public class GUI extends JFrame
 	private JLabel image;
 	private JButton next;
 	private JButton previous;
+	private JButton rent;
+	private JButton buy;
 	
 	public Search search;
 	public Appraise appraisal;
@@ -44,6 +46,7 @@ public class GUI extends JFrame
 		search = new Search();
 		appraisal = new Appraise();
 		res = new ArrayList<>();
+		//res = Search.res1;
 		br = new BuildingReader();
 		res = br.getBuildings("buildings.csv");
 		buildButtonPanel();
@@ -55,6 +58,7 @@ public class GUI extends JFrame
 		add(imagePanel, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
 		add(textPanel, BorderLayout.EAST);
+		pack();
 		setVisible(true);
 	}
 	
@@ -62,6 +66,11 @@ public class GUI extends JFrame
 	{
 		return res.get(count);
 		//return residential object 
+	}
+	
+	private void removeProperty()
+	{
+		res.remove(count);
 	}
 
 	private void generateHome(Residential resident) 
@@ -103,7 +112,7 @@ public class GUI extends JFrame
       	//add the spacer to your JMenuBar
       	menubar.add(spacer);
         
-      	 //Creates the List Menu - brings back to main menu
+      	 //Creates the Home Menu - brings back to main menu
         JMenu homeMenu = new JMenu("Home");
         homeMenu.addMenuListener(new Home());
         menubar.add(homeMenu);
@@ -141,7 +150,7 @@ public class GUI extends JFrame
 		//FIX
 		summary.setText("");
 		summary.setSize(100, 800);
-		summary.append("Summary of House:"
+		summary.append("Summary of Property: "
 				+ resident.getDetails());
 		summary.setFont(new Font("Century", Font.BOLD, 16));
         summary.setForeground(new Color(102, 205, 170));
@@ -168,6 +177,12 @@ public class GUI extends JFrame
 		previous = new JButton("Previous House");
 		buttonPanel.add(previous);
 		
+		rent = new JButton("Rent Property");
+		buttonPanel.add(rent);
+		
+		buy = new JButton("Buy House");
+		buttonPanel.add(buy);
+		
 		next = new JButton("Next House");
 		buttonPanel.add(next);
 		
@@ -175,7 +190,11 @@ public class GUI extends JFrame
 		
 		next.addActionListener(e -> nextImage());
 		previous.addActionListener(e -> previousImage());
+		rent.addActionListener(e -> rentProperty());
+		buy.addActionListener(e -> buyHouse());
 	}
+
+	
 
 	private void setFont() 
 	{
@@ -188,6 +207,16 @@ public class GUI extends JFrame
         next.setForeground(new Color(102, 205, 170));
         next.setFocusPainted(false);
         next.setFont(new Font("Century", Font.BOLD, 18));
+        
+        buy.setBackground(new Color(47, 79, 79));
+        buy.setForeground(new Color(102, 205, 170));
+        buy.setFocusPainted(false);
+        buy.setFont(new Font("Century", Font.BOLD, 18));
+        
+        rent.setBackground(new Color(47, 79, 79));
+        rent.setForeground(new Color(102, 205, 170));
+        rent.setFocusPainted(false);
+        rent.setFont(new Font("Century", Font.BOLD, 18));
         
         buttonPanel.setBackground(new Color(47, 79, 79));
 	}
@@ -210,34 +239,18 @@ public class GUI extends JFrame
 		generateHome(getResident());
 	}
 	
-	/**
-	 * Inner class creates background image
-	 * @author Will
-	 *
-	 */
-	class DrawPanel extends JPanel
+	private void buyHouse() 
 	{
-		private Residential resident;
-		public DrawPanel(Residential resident)
-		{
-			setLayout(null);
-			this.resident = resident;
-		}
-		
-		public void paintComponent(Graphics g)
-		{
-			ImageIcon imageIcon = new ImageIcon(resident.getFileName());
-	        Image image = imageIcon.getImage();
-	        Image newimg = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-	        JLabel imageLabel = new JLabel("", new ImageIcon(newimg), JLabel.CENTER);
-	        imagePanel.add(imageLabel, BorderLayout.CENTER);
-			
-			/*Image house = new ImageIcon("house.jpeg").getImage();
-			image = new JLabel(new ImageIcon(house.getScaledInstance(IMAGE_WIDTH, IMAGE_HEIGHT, Image.SCALE_SMOOTH)));
-			image.setBounds(0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
-			image.setLocation(0, 0);
-			add(image);*/
-		}
+		removeProperty();
+		JOptionPane.showMessageDialog(null, "Thank you for buying this property");
+		//count = 0;
+	}
+
+	private void rentProperty() 
+	{
+		removeProperty();
+		JOptionPane.showMessageDialog(null, "Thank you for renting this property");
+		//count = 0;
 	}
 	
 	public class SearchBar implements MenuListener
@@ -246,6 +259,7 @@ public class GUI extends JFrame
 	    public void menuSelected(MenuEvent e) 
 		{
 			//remove all the previous panels
+			search = new Search();
 			remove(imagePanel);
 			remove(buttonPanel);
 			remove(textPanel);
@@ -256,6 +270,7 @@ public class GUI extends JFrame
 			 
 			add(search.radioButtonReturn(), BorderLayout.CENTER);
 			add(search.bPanelReturn(), BorderLayout.SOUTH);
+			add(search.textAreaReturn(), BorderLayout.NORTH);
 			setVisible(true);
 	    }
 		
@@ -278,8 +293,10 @@ public class GUI extends JFrame
 		@Override
 		public void menuSelected(MenuEvent e) 
 		{
+			res = search.getSearch();
 			remove(search.radioButtonReturn());
 			remove(search.bPanelReturn());
+			remove(search.textAreaReturn());
 			remove(appraisal.bPanelReturn());
 			remove(appraisal.tPanelReturn());
 			remove(appraisal.imagePanelReturn());
@@ -314,14 +331,15 @@ public class GUI extends JFrame
 		{
 			remove(search.radioButtonReturn());
 			remove(search.bPanelReturn());
+			remove(search.textAreaReturn());
 	    	remove(imagePanel);
 			remove(buttonPanel);
 			remove(textPanel);
 			setVisible(false);
 
 			add(appraisal.bPanelReturn(), BorderLayout.SOUTH);
-			add(appraisal.tPanelReturn(), BorderLayout.CENTER);
-			add(appraisal.imagePanelReturn(), BorderLayout.EAST);
+			add(appraisal.tPanelReturn(), BorderLayout.WEST);
+			add(appraisal.imagePanelReturn(), BorderLayout.CENTER);
 			setVisible(true);			
 		}
 
