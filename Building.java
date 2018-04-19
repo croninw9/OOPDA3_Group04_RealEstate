@@ -12,6 +12,7 @@ public abstract class Building {
 	private int room;
 	private String location;
 	private String fileName;
+	private boolean rented;
 	
 	public Building(double price, int squareFt, int floor, int room, String location, String fileName) {
 		this.price = price;
@@ -20,8 +21,19 @@ public abstract class Building {
 		this.room = room;
 		this.location = location;
 		this.fileName = fileName;
+		rented = false;
 	}
 
+	public boolean isRented()
+	{
+		return rented;
+	}
+	
+	public void setRented() 
+	{
+		rented = true;
+	}
+	
 	public String getFileName() {
 		return fileName;
 	}

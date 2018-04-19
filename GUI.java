@@ -24,6 +24,8 @@ public class GUI extends JFrame
 	private JButton rent;
 	private JButton buy;
 	
+	private boolean searchState;
+	
 	public Search search;
 	public Appraise appraisal;
 	
@@ -259,6 +261,7 @@ public class GUI extends JFrame
 	    public void menuSelected(MenuEvent e) 
 		{
 			//remove all the previous panels
+			searchState = true;
 			search = new Search();
 			remove(imagePanel);
 			remove(buttonPanel);
@@ -293,7 +296,14 @@ public class GUI extends JFrame
 		@Override
 		public void menuSelected(MenuEvent e) 
 		{
-			res = search.getSearch();
+			if(searchState == true)
+			{
+				res = search.getSearch();
+			}
+			else
+			{
+				res = appraisal.getAppraise();
+			}
 			remove(search.radioButtonReturn());
 			remove(search.bPanelReturn());
 			remove(search.textAreaReturn());
@@ -329,6 +339,8 @@ public class GUI extends JFrame
 		@Override
 		public void menuSelected(MenuEvent e) 
 		{
+			appraisal = new Appraise();
+			searchState = false;
 			remove(search.radioButtonReturn());
 			remove(search.bPanelReturn());
 			remove(search.textAreaReturn());

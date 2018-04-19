@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import javax.swing.*;
 
 public class Appraise{
-	private String name;
-	private boolean appraised;
 	private JTextField houseType;
 	private JTextField numRoom;
 	private JTextField squareFt;
@@ -36,10 +34,8 @@ public class Appraise{
 
 	private ArrayList<Residential> buildings;
 	
-	public Appraise(String name) 
+	public Appraise() 
 	{
-		this.name = name;
-		appraised = false;
 		br = new BuildingReader();
 		buildings = br.getBuildings("buildings.csv");
 		openImage = new OpenImage();
@@ -47,22 +43,6 @@ public class Appraise{
 		
 		setUpTextField();
 		setUpButtonPanel();
-	}
-	
-	/**
-	 * returns String name
-	 * @return name
-	 */
-	public String getName(){
-		return name;
-	}
-	
-	/**
-	 * returns boolean appraised
-	 * @return appraised
-	 */
-	public boolean isAppraised(){
-		return appraised;
 	}
 	
 	public void setUpTextField() {
@@ -226,7 +206,7 @@ public class Appraise{
 		
 		DecimalFormat df = new DecimalFormat("#.00"); 
 		price = ((avgType() + avgRoom() + avgSize() + avgBath() + avgFloor() + avgLocation())/6);
-		JOptionPane.showMessageDialog(null, ("Aprassied by: " + name + "\nThe value of the House is : $" + df.format(price)));
+		JOptionPane.showMessageDialog(null, ("The value of the House is : $" + df.format(price)));
 		System.out.println(price);
 		System.out.println(type + room + squareft + bathroomNum + floorsNum + locationNum);
 		
@@ -236,6 +216,7 @@ public class Appraise{
 		if(price != 0) {
 			br.addBuilding("buildings.csv", new Residential(type, price, squareft, floorsNum, room, bathroomNum, locationNum, openImage.getFileName()));
 			JOptionPane.showMessageDialog(null, "Congratulations! You've successfully listed the Residence");
+			buildings = br.getBuildings("buildings.csv");
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Appraise the House before Listing", "Warning", JOptionPane.ERROR_MESSAGE);
@@ -284,7 +265,13 @@ public class Appraise{
 		return t2Panel;
 	}
 	
-	public JPanel imagePanelReturn() {
+	public JPanel imagePanelReturn() 
+	{
 		return openImage.getPanel();
+	}
+	
+	public ArrayList<Residential> getAppraise()
+	{
+		return buildings;
 	}
 }

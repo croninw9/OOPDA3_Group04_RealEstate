@@ -78,6 +78,17 @@ public class Agency {
 		return buildings;
 	}
 	
+	public void getRentedBuildings() 
+	{
+		for(Residential element : buildings)
+		{
+			if(element.isRented()) 
+			{
+				element.getDetails();
+			}
+		}
+	}
+	
 	public void filterType(String type){
 		buildings = buildings.stream()
 						.filter(res -> res.getType().equalsIgnoreCase(type))
