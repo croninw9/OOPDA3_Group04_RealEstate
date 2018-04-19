@@ -22,6 +22,34 @@ public class BuildingReader {
  public BuildingReader()
     {
     }
+	
+/**
+  * Takes a long string of all features and puts them into an array
+  * @param feature
+  * @return features
+  */
+ public ArrayList<String> getFeatures(String feature){
+	 ArrayList<String> features = new ArrayList<String>();
+	 String[] parts = feature.split(" ");
+	 for(String s : parts){
+		 features.add(s);
+	 }
+	 return features;
+	 
+ }
+ 
+ /**
+  * puts an array of strings into a long string
+  * @param features
+  * @return
+  */
+ public String buildFeatures(ArrayList<String>features){
+	 String allBuild = null;
+	 for(String s : features){
+		 allBuild += s + " ";
+	 }
+	 	return allBuild;
+ }
     
     /**
      * Read sightings in CSV format from the given file.
