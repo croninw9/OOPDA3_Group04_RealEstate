@@ -1,14 +1,18 @@
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class BuildingReader {
 	// How many fields are expected.
-    private static final int NUMBER_OF_FIELDS = 7;
+    private static final int NUMBER_OF_FIELDS = 8;
     // Index values for the fields in each record.
     private static final int TYPE = 0,
                              PRICE = 1,
@@ -16,13 +20,68 @@ public class BuildingReader {
                              FLOOR = 3,
                              ROOMNUMBER = 4,
     						 BATHROOMNUMBER = 5,
-    						 LOCATION = 6;
+    						 LOCATION = 6,
+    						 IMAGEFILE = 7;
     						
+
  public BuildingReader()
     {
     }
     
-    /**
+ /**
+
+  * Takes a long string of all features and puts them into an array
+
+  * @param feature
+
+  * @return features
+
+  */
+
+ public ArrayList<String> getFeatures(String feature){
+
+	 ArrayList<String> features = new ArrayList<String>();
+
+	 String[] parts = feature.split(" ");
+
+	 for(String s : parts){
+
+		 features.add(s);
+
+	 }
+
+	 return features;
+
+	 
+
+ }
+
+ 
+
+ /**
+
+  * puts an array of strings into a long string
+
+  * @param features
+
+  * @return
+
+  */
+
+ public String buildFeatures(ArrayList<String>features){
+
+	 String allBuild = null;
+
+	 for(String s : features){
+
+		 allBuild += s + " ";
+
+	 }
+
+	 	return allBuild;
+
+ }   
+ /**
      * Read sightings in CSV format from the given file.
      * Return an ArrayList of Sighting objects created from
      * the information in the file.
@@ -30,10 +89,10 @@ public class BuildingReader {
      * @param filename The file to be read - should be in CSV format.
      * @return A list of Sightings.
      */
-    public ArrayList<Building> getBuildings(String filename)
+    public ArrayList<Residential> getBuildings(String filename)
     {
         // Create a Sighting from a CSV input line.
-        Function<String, Building> createBuilding = 
+        Function<String, Residential> createBuilding = 
             record -> {
                            String[] parts = record.split(",");
                            if(parts.length == NUMBER_OF_FIELDS) {
@@ -45,7 +104,8 @@ public class BuildingReader {
                                    int room = Integer.parseInt(parts[ROOMNUMBER].trim());
                                    int bathroom = Integer.parseInt(parts[BATHROOMNUMBER].trim());
                                    String location = parts[LOCATION].trim();
-                                   return new Building(type, price, size, floor, room, bathroom, location);
+                                   String imageFile = parts[IMAGEFILE].trim();
+                                   return new Residential(type, price, size, floor, room, bathroom, location, imageFile);
                                }
                                catch(NumberFormatException e) {
                                    System.out.println("Building record has a malformed integer: " + record);
@@ -57,7 +117,7 @@ public class BuildingReader {
                                return null;
                            }
                        };
-        ArrayList<Building> buildings;
+        ArrayList<Residential> buildings;
         try {
             buildings = Files.lines(Paths.get(filename))
                              .filter(record -> record.length() > 0 && record.charAt(0) != '#')
@@ -72,7 +132,7 @@ public class BuildingReader {
         return buildings;
     }
     
-    public void addBuilding(String fileName, Building building) throws IOException {
+    public void addBuilding(String fileName, Residential building) throws IOException {
     	FileWriter pw = new FileWriter(fileName, true);
         StringBuilder sb = new StringBuilder();
         
@@ -89,10 +149,56 @@ public class BuildingReader {
         sb.append(building.getBathroom());
         sb.append(',');
         sb.append(building.getLocation());
+        sb.append(',');
+        sb.append(building.getFileName());
 
         pw.write(sb.toString() + "\n");
         pw.close();
         System.out.println("done!");
 
-    						    }
+    }
+    
+    public void removeBuilding(String fileName, Residential building) {
+    	 building.getType();
+         building.getPrice();
+         building.getFileName();
+    	
+         String tempFile = "temp.csv"; 
+         File oldFile = new File(fileName);
+         File newFile = new File(tempFile);
+         String type = ""; String price = ""; String size = ""; String floor = "";
+         String room = ""; String bathroom = ""; String location = ""; String imageFile = "";
+         
+    	try {
+    		FileWriter fw = new FileWriter(tempFile, true);
+    		BufferedWriter bw = new BufferedWriter(fw);
+    		PrintWriter pw = new PrintWriter(bw);
+    		Scanner x = new Scanner(new File(fileName));
+    		x.useDelimiter("[,\n]");
+    		
+    		while(x.hasNext()) {
+    			type = x.next();
+    			price = x.next();
+    			size = x.next();
+    			floor = x.next();
+    			room = x.next();
+    			bathroom = x.next();
+    			location = x.next();
+    			imageFile = x.next();
+    			if(!type.equals(building.getType()) && !imageFile.equals(building.getFileName())) {
+    				pw.println(type + "," + price + "," + size + "," + floor 
+    						+ "," + room + "," + bathroom + "," + location + "," + imageFile);
+    			}
+    		}
+    		x.close();
+    		pw.flush();
+    		pw.close();
+    		oldFile.delete();
+    		File dump = new File(fileName);
+    		newFile.renameTo(dump);
+    	}
+    	catch(Exception e) {
+    		System.out.println("Couldn't remove residential object");
+    	}
+    }
 }
