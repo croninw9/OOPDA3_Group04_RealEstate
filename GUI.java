@@ -245,6 +245,8 @@ public class GUI extends JFrame
 	{
 		removeProperty();
 		JOptionPane.showMessageDialog(null, "Thank you for buying this property");
+		br.addBuilding("historicalFile.csv", res.get(count));
+		br.removeBuilding(res.get(count));
 		//count = 0;
 	}
 
