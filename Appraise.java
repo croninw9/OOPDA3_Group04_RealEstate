@@ -33,6 +33,7 @@ public class Appraise{
 	private OpenImage openImage; 
 
 	private ArrayList<Residential> buildings;
+	private ArrayList<Residential> oldBuildings;
 	
 	public Appraise() 
 	{
@@ -223,34 +224,34 @@ public class Appraise{
 		}
 	}
 	
-	private double avgType() {
-		return buildings.stream()
+	private double avgType(ArrayList<Residential> build) {
+		return build.stream()
 				.filter(house -> type.equalsIgnoreCase(house.getType()))
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
 	
-	private double avgRoom() {
-		return buildings.stream()
+	private double avgRoom(ArrayList<Residential> build) {
+		return build.stream()
 				.filter(building -> room == building.getRoom())
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
-	private double avgSize() {
-		return buildings.stream()
+	private double avgSize(ArrayList<Residential> build) {
+		return build.stream()
 				.filter(size -> ((squareft + 300) < size.getSquareFt()) && ((squareft - 300) < size.getSquareFt()))
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
-	private double avgBath() {
-		return buildings.stream()
+	private double avgBath(ArrayList<Residential> build) {
+		return build.stream()
 				.filter(bath -> bath.getBathroom() == bathroomNum)
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
-	private double avgFloor() {
-		return buildings.stream()
+	private double avgFloor(ArrayList<Residential> build) {
+		return build.stream()
 				.filter(fl -> fl.getFloor() == floorsNum)
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
-	private double avgLocation() {
-		return buildings.stream()
+	private double avgLocation(ArrayList<Residential> build) {
+		return build.stream()
 				.filter(loc -> loc.getLocation().equals(locationNum))
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
