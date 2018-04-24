@@ -39,6 +39,7 @@ public class Appraise{
 	{
 		br = new BuildingReader();
 		buildings = br.getBuildings("buildings.csv");
+		oldBuildings = br.getBuildings("historical.csv");
 		openImage = new OpenImage();
 		price = 0;
 		
@@ -206,7 +207,10 @@ public class Appraise{
 		locationNum = location.getText().trim();
 		
 		DecimalFormat df = new DecimalFormat("#.00"); 
-		price = ((avgType() + avgRoom() + avgSize() + avgBath() + avgFloor() + avgLocation())/6);
+		double newPrice = ((avgType(buildings) + avgRoom(buildings) + avgSize(buildings) + avgBath(buildings) + avgFloor(buildings) + avgLocation(buildings))/6);
+		double oldPrice = ((avgType(oldBuildings) + avgRoom(oldBuildings) + avgSize(oldBuildings) + avgBath(oldBuildings) + avgFloor(oldBuildings) + avgLocation(oldBuildings))/6);
+		
+		price = (newPrice + oldPrice)/2;
 		JOptionPane.showMessageDialog(null, ("The value of the House is : $" + df.format(price)));
 		System.out.println(price);
 		System.out.println(type + room + squareft + bathroomNum + floorsNum + locationNum);
