@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * @author Tim Duong
+ * This class handles the csv file for holding the value of 
+ * the propierties held 
+ */
 public class BuildingReader {
 	// How many fields are expected.
     private static final int NUMBER_OF_FIELDS = 8;
@@ -74,6 +79,12 @@ public class BuildingReader {
         return buildings;
     }
     
+    /**
+     * adds a new building to the file readers csv
+     * @param fileName
+     * @param building
+     * @throws IOException
+     */
     public void addBuilding(String fileName, Residential building) throws IOException {
     	FileWriter pw = new FileWriter(fileName, true);
         StringBuilder sb = new StringBuilder();
