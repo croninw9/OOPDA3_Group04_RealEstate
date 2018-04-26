@@ -10,7 +10,9 @@ import javax.swing.*;
 
 
 /**
- * 
+ * This search class lets the user search for a specific house 
+ * in certain parameters that are proposed to the user in multiple buttons 
+ * that choose what the user wants in said house
  * @author William Cronin and Timothy Duong
  *
  */
@@ -79,16 +81,28 @@ public class Search
 	  
 	}
 	
+	/**
+	 * returns the JTextArea
+	 * @return textArea
+	 */
 	public JTextArea textAreaReturn()
 	{
 		return textArea;
 	}
 	
+	/**
+	 * returns the JPanel
+	 * @return buttonPanel2
+	 */
 	public JPanel bPanelReturn() 
 	{
 		return buttonPanel2;
 	}
 	
+	/**
+	 * returns the JPanel
+	 * @return radioButtonPanel
+	 */
 	public JPanel radioButtonReturn() 
 	{
 		return radioButtonPanel;
@@ -97,7 +111,7 @@ public class Search
 
 	/**
 	 * @param a 
-	 * 
+	 * filters for the search 
 	 */
     public void  pressSearch() 
     {
@@ -106,6 +120,10 @@ public class Search
     	//public ArrayList<Residential> filter(int type, int room, int sqFt, int bathNum, int floorNum, int locNum, int price)   	
 	}
     
+    /**
+     * returns the ArratList<Residential>
+     * @return res
+     */
     public ArrayList<Residential> getSearch()
     {
     	return res;
