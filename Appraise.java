@@ -8,6 +8,12 @@ import java.util.stream.Collectors;
 
 import javax.swing.*;
 
+/**
+ * This class appraises houses and figures out the price
+ * through a calculation then list's the house
+ * @author Tim Duong
+ *
+ */
 public class Appraise{
 	private String name;
 	private boolean appraised;
@@ -64,6 +70,9 @@ public class Appraise{
 		return appraised;
 	}
 	
+	/**
+	 * This sets up the text field for the appraise 
+	 */
 	public void setUpTextField() {
 		houseType = new JTextField(30);
 		numRoom = new JTextField(30);
@@ -148,6 +157,9 @@ public class Appraise{
 		t2Panel.add(tPanel);
 	}
 	
+	/**
+	 * sets up the button panel for the appraise to start working 
+	 */
 	public void setUpButtonPanel() {
 		bPanel = new JPanel();
 		appraise = new JButton("Appraise");
@@ -186,6 +198,9 @@ public class Appraise{
 		bPanel.add(imageSelect);
 	}
 	
+	/**
+	 * this is a self check method to make sure the appraise works as it should
+	 */
 	public void checkAppraise() {
 		String error = "";
 		if(houseType.getText().equals("")) {
@@ -214,6 +229,10 @@ public class Appraise{
 			JOptionPane.showMessageDialog(null, error, "Warning", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	/**
+	 * the main method for appraising the house that handles the calculation
+	 */
 	public void appraiseHouse() {
 		
 		type = houseType.getText().trim();
@@ -231,6 +250,10 @@ public class Appraise{
 		
 	}
 	
+	/**
+	 * this lists the house in the building csv
+	 * @throws IOException
+	 */
 	public void listHouse() throws IOException {
 		if(price != 0) {
 			br.addBuilding("buildings.csv", new Residential(type, price, squareft, floorsNum, room, bathroomNum, locationNum, openImage.getFileName()));
@@ -242,53 +265,96 @@ public class Appraise{
 		}
 	}
 	
+	/**
+	 * this filters the average type
+	 * @return double of filter
+	 */
 	private double avgType() {
 		return buildings.stream()
 				.filter(house -> type.equalsIgnoreCase(house.getType()))
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
 	
+	/**
+	 * this filters the average room
+	 * @return double of room
+	 */
 	private double avgRoom() {
 		return buildings.stream()
 				.filter(building -> room == building.getRoom())
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
+	
+	/**
+	 * this filters the average size
+	 * @return double of size
+	 */
 	private double avgSize() {
 		return buildings.stream()
 				.filter(size -> ((squareft + 300) < size.getSquareFt()) && ((squareft - 300) < size.getSquareFt()))
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
+	
+	/**
+	 * this filters the average bath
+	 * @return double of bath
+	 */
 	private double avgBath() {
 		return buildings.stream()
 				.filter(bath -> bath.getBathroom() == bathroomNum)
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
+	
+	/**
+	 * this filters the average floor
+	 * @return double of floor
+	 */
 	private double avgFloor() {
 		return buildings.stream()
 				.filter(fl -> fl.getFloor() == floorsNum)
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
+	
+	/**
+	 * this filters the average location
+	 * @return double of location
+	 */
 	private double avgLocation() {
 		return buildings.stream()
 				.filter(loc -> loc.getLocation().equals(locationNum))
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
 	
+	/**
+	 * @return bPanel
+	 */
 	public JPanel bPanelReturn()
 	{
 		return bPanel;
 	}
 	
+	/**
+	 * 
+	 * @return t2Panel
+	 */
 	public JPanel tPanelReturn()
 	{
 		return t2Panel;
 	}
 	
+	/**
+	 * 
+	 * @return openImage.getPanel()
+	 */
 	public JPanel imagePanelReturn() 
 	{
 		return openImage.getPanel();
 	}
 	
+	/**
+	 * 
+	 * @return buildings
+	 */
 	public ArrayList<Residential> getAppraise()
 	{
 		return buildings;
