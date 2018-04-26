@@ -10,8 +10,10 @@ import javax.swing.event.MenuListener;
 import java.util.ArrayList;
 
 /**
- * 
- * @author Will
+ * This has the design pattern of a singlton class
+ * and this class deals with most of the heavy hitting for the 
+ * project handeling most of the entire GUI interaction
+ * @author Will Cronin
  *
  */
 public class GUI extends JFrame
@@ -64,17 +66,28 @@ public class GUI extends JFrame
 		setVisible(true);
 	}
 	
+	/**
+	 * returns a count of residential
+	 * @return res.get(count)
+	 */
 	private Residential getResident()
 	{
 		return res.get(count);
 		//return residential object 
 	}
 	
+	/**
+	 * removes a property at a certain index from count
+	 */
 	private void removeProperty()
 	{
 		res.remove(count);
 	}
 
+	/**
+	 * this genrerates a home for the GUI
+	 * @param resident
+	 */
 	private void generateHome(Residential resident) 
 	{
 		ImageIcon imageIcon = new ImageIcon(resident.getFileName());
@@ -147,13 +160,16 @@ public class GUI extends JFrame
         textPanel.setBackground(new Color(47, 79, 79));
 	}
 
+	/**
+	 * this sets the summary of a text area for a specific house 
+	 * @param resident
+	 */
 	private void setSummary(Residential resident)
 	{
 		//FIX
 		summary.setText("");
 		summary.setSize(100, 800);
-		summary.append("Summary of Property: "
-				+ resident.getDetails());
+		summary.append("Summary of Property: " + resident.getDetails());
 		summary.setFont(new Font("Century", Font.BOLD, 16));
         summary.setForeground(new Color(102, 205, 170));
         summary.setBackground(new Color(47, 79, 79));
@@ -198,6 +214,10 @@ public class GUI extends JFrame
 
 	
 
+	/**
+	 * this sets the font and special characteristics 
+	 * of the GUI
+	 */
 	private void setFont() 
 	{
 		previous.setBackground(new Color(47, 79, 79));
@@ -223,6 +243,9 @@ public class GUI extends JFrame
         buttonPanel.setBackground(new Color(47, 79, 79));
 	}
 
+	/**
+	 * gets the previous image 
+	 */
 	private void previousImage() 
 	{
 		if(count > 0) {
@@ -232,6 +255,9 @@ public class GUI extends JFrame
 		generateHome(getResident());
 	}
 
+	/**
+	 * get the next image 
+	 */
 	private void nextImage() 
 	{
 		if(count < res.size()-1) {
@@ -241,6 +267,9 @@ public class GUI extends JFrame
 		generateHome(getResident());
 	}
 	
+	/**
+	 * this buys the house and removes it 
+	 */
 	private void buyHouse() 
 	{
 		removeProperty();
@@ -248,6 +277,9 @@ public class GUI extends JFrame
 		//count = 0;
 	}
 
+	/**
+	 * this lets you rent a house 
+	 */
 	private void rentProperty() 
 	{
 		removeProperty();
@@ -255,6 +287,12 @@ public class GUI extends JFrame
 		//count = 0;
 	}
 	
+	/**
+	 * implements the other class Search bar to allow 
+	 * its use and implementation
+	 * @author Will Cronin 
+	 *
+	 */
 	public class SearchBar implements MenuListener
 	{
 		@Override
@@ -290,6 +328,11 @@ public class GUI extends JFrame
 	    }
 	}
 
+	/**
+	 * lets the user go back to the menu screen 
+	 * @author Will Cronin 
+	 *
+	 */
 	public class Home implements MenuListener
     {
 		//Search search = new Search();
@@ -333,6 +376,12 @@ public class GUI extends JFrame
 		}    	
     }
 	
+	/**
+	 *implements the other class Appraisal bar to allow 
+	 * its use and implementation
+	 * @author Will Cronin 
+	 *
+	 */
 	public class Appraisal implements MenuListener
     {
 		//Search search = new Search();
