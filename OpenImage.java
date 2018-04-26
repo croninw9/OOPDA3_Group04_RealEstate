@@ -11,6 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * @author Tim Duong
+ * Open image sets a new image to a file and then shows them when
+ * a button is pressed
+ *
+ */
 public class OpenImage {
 	private JPanel imagePanel;
 	private JLabel imageLabel;
@@ -44,10 +50,18 @@ public class OpenImage {
         }
 	}
 	
+	/**
+	 * returns the imagePanel
+	 * @return imagePanel
+	 */
 	public JPanel getPanel() {
 		return imagePanel;
 	}
 	
+	/**
+	 * returns the filename
+	 * @return filename
+	 */
 	public String getFileName() {
 		return filename;
 	}
