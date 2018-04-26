@@ -6,6 +6,12 @@ import java.awt.event.ItemEvent;
 
 import javax.swing.*;
 
+/**
+ * Radio button is used to implemented to be able to press buttons in the tabs
+ * search, appraisal, etc.
+ * @author Tim Duong
+ *
+ */
 public class RadioButton 
 {
 	private JRadioButton button1;
@@ -50,6 +56,10 @@ public class RadioButton
 
 	}
 	
+	/**
+	 * gets the JPanel
+	 * @return p 
+	 */
 	public JPanel getJPanel() {
 		
 		ButtonGroup bg = new ButtonGroup();
@@ -69,6 +79,10 @@ public class RadioButton
 	    return p;
 	}
 	
+	/**
+	 * finds if the state has been changed or not 
+	 * @param e
+	 */
 	public void stateChanged(ItemEvent e) 
 	{
 	    if (e.getStateChange() == ItemEvent.SELECTED) 
@@ -102,6 +116,10 @@ public class RadioButton
 	    }
 	}
 	
+	/**
+	 * returns the value 
+	 * @return value
+	 */
 	public int getValue()
 	{
 		return value;
