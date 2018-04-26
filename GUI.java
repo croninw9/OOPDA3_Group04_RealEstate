@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.imageio.*;
 import javax.swing.*;
@@ -68,11 +69,6 @@ public class GUI extends JFrame
 	{
 		return res.get(count);
 		//return residential object 
-	}
-	
-	private void removeProperty()
-	{
-		res.remove(count);
 	}
 
 	private void generateHome(Residential resident) 
@@ -179,9 +175,6 @@ public class GUI extends JFrame
 		previous = new JButton("Previous House");
 		buttonPanel.add(previous);
 		
-		rent = new JButton("Rent Property");
-		buttonPanel.add(rent);
-		
 		buy = new JButton("Buy House");
 		buttonPanel.add(buy);
 		
@@ -192,8 +185,14 @@ public class GUI extends JFrame
 		
 		next.addActionListener(e -> nextImage());
 		previous.addActionListener(e -> previousImage());
-		rent.addActionListener(e -> rentProperty());
-		buy.addActionListener(e -> buyHouse());
+		buy.addActionListener(e -> {
+			try {
+				buyHouse();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 	}
 
 	
@@ -214,11 +213,6 @@ public class GUI extends JFrame
         buy.setForeground(new Color(102, 205, 170));
         buy.setFocusPainted(false);
         buy.setFont(new Font("Century", Font.BOLD, 18));
-        
-        rent.setBackground(new Color(47, 79, 79));
-        rent.setForeground(new Color(102, 205, 170));
-        rent.setFocusPainted(false);
-        rent.setFont(new Font("Century", Font.BOLD, 18));
         
         buttonPanel.setBackground(new Color(47, 79, 79));
 	}
@@ -241,19 +235,17 @@ public class GUI extends JFrame
 		generateHome(getResident());
 	}
 	
-	private void buyHouse() 
+	private void removeProperty()
 	{
-		removeProperty();
+		res.remove(count);
+	}
+
+	private void buyHouse() throws IOException 
+	{
 		JOptionPane.showMessageDialog(null, "Thank you for buying this property");
 		br.addBuilding("historicalFile.csv", res.get(count));
 		br.removeBuilding(res.get(count));
-		//count = 0;
-	}
-
-	private void rentProperty() 
-	{
 		removeProperty();
-		JOptionPane.showMessageDialog(null, "Thank you for renting this property");
 		//count = 0;
 	}
 	
@@ -361,14 +353,12 @@ public class GUI extends JFrame
 		public void menuCanceled(MenuEvent e) 
 		{
 			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void menuDeselected(MenuEvent e) 
 		{
 			// TODO Auto-generated method stub
-			
 		}    	
     }
 }

@@ -31,13 +31,9 @@ public class BuildingReader {
     }
     
  /**
-
   * Takes a long string of all features and puts them into an array
-
   * @param feature
-
   * @return features
-
   */
 
  public ArrayList<String> getFeatures(String feature){
@@ -61,13 +57,9 @@ public class BuildingReader {
  
 
  /**
-
   * puts an array of strings into a long string
-
   * @param features
-
   * @return
-
   */
 
  public String buildFeatures(ArrayList<String>features){
@@ -164,7 +156,6 @@ public class BuildingReader {
         StringBuilder sb = new StringBuilder();
         res = getBuildings("buildings.csv");
         res = res.stream()
-        		.filter(type -> !(type.getType().equals(building.getType())))
         		.filter(price -> !(price.getPrice() == building.getPrice()))
         		.filter(file -> !(file.getFileName().equals(building.getFileName())))
         		.collect(Collectors.toCollection(ArrayList::new));

@@ -1,0 +1,6 @@
+#Fields: Type,Price,squareFt,Floor,room,bathroom,location,
+House,500000,3000,3,4,2,Tampa,C:\Users\Will\eclipse-workspace\RealEstate\House2.jpg
+Apartment,10526,1329,1,2,2,Denver,C:\Users\Will\eclipse-workspace\RealEstate\Apartment.jpg
+Townhouse,410000,1488,2,2,3,Los Angeles,TownHouse.jpg
+House,250000,1500,2,3,3,Denver,C:\Users\Will\eclipse-workspace\RealEstate\House3.jpg
+House,395833.3333,2500,3,4,2,New York,C:\Users\Will\eclipse-workspace\RealEstate\House.jpg

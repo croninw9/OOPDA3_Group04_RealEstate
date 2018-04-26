@@ -7,6 +7,7 @@ public class Residential extends Building
 {
 	private int bathroom;
 	private String type;
+	private ArrayList<String> features;
 	
 	public Residential(String type, double price, int squareFt, int floor, int room, int bathroom, String location, String fileName)
 	{
@@ -45,8 +46,16 @@ public class Residential extends Building
 							"\n" +
 							"\n Price of Building: " + this.getPrice() +
 							"\n" +
-							"\n Location: " + this.getLocation();
+							"\n Location: " + this.getLocation() +
+							"\n" +
+							"\n Features: " + 
+							"\n";
 	}
+	/*
+	public String getFeatures()
+	{
+		
+	}*/
 	
 	
 }

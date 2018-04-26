@@ -39,7 +39,7 @@ public class Appraise{
 	{
 		br = new BuildingReader();
 		buildings = br.getBuildings("buildings.csv");
-		oldBuildings = br.getBuildings("historical.csv");
+		oldBuildings = br.getBuildings("historicalFile.csv");
 		openImage = new OpenImage();
 		price = 0;
 		
