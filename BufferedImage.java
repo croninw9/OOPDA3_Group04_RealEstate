@@ -1,7 +1,7 @@
 import java.util.Random;
 
 /**
- *
+ * This class handles the buffered image for the GUI
  * @author Jared Evangelista
  */
 public class BufferedImage extends javax.swing.JFrame {
@@ -81,6 +81,10 @@ public class BufferedImage extends javax.swing.JFrame {
         pack();
     }
     
+    /**
+     * returns a random image for the house 
+     * @return options
+     */
     public String randImg()
     {
     	String options[] = new String[10];
@@ -98,12 +102,12 @@ public class BufferedImage extends javax.swing.JFrame {
     	Random r = new Random();
     	
     	return options[r.nextInt(10)];
-    			
-    	
-    	
-    
     }
 
+    /**
+     * runs the buffered image
+     * @param args
+     */
     public static void main(String args[]) 
     {
        
