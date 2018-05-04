@@ -241,7 +241,7 @@ public class Appraise{
 	}
 	private double avgSize(ArrayList<Residential> build) {
 		return build.stream()
-				.filter(size -> ((squareft + 300) < size.getSquareFt()) && ((squareft - 300) < size.getSquareFt()))
+				.filter(size -> ((squareft + 100) < size.getSquareFt()) && ((squareft - 100) < size.getSquareFt()))
 				.collect(Collectors.averagingDouble(Building::getPrice));
 	}
 	private double avgBath(ArrayList<Residential> build) {

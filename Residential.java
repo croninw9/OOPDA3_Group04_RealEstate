@@ -47,8 +47,6 @@ public class Residential extends Building
 							"\n Price of Building: " + this.getPrice() +
 							"\n" +
 							"\n Location: " + this.getLocation() +
-							"\n" +
-							"\n Features: " + 
 							"\n";
 	}
 	/*

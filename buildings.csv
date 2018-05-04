@@ -1,4 +1,10 @@
+Apartment,10526.0,1329,1,2,2,Denver,Apartment.jpg
 Townhouse,410000.0,1488,2,2,3,Los Angeles,TownHouse.jpg
-House,500000.0,3000,3,4,2,Tampa,House2.jpg
-House,250000.0,1500,2,3,3,Denver,House3.jpg
+House,500000.0,3000,3,4,2,Tampa,ModernHouse.jpg
+House,250000.0,1500,2,3,3,Denver,VictorianHouse.jpg
 House,395833.3333,2500,3,4,2,New York,House.jpg
+House,118000.4426,1000,1,2,1,Tampa,C:\Users\Will\eclipse-workspace\RealEstate\FloatingHome.jpg
+Castle,5.0E7,35000,5,30,10,Scotland,CastleHouse.jpg
+Hut,100.0,100,1,0,0,Cambodia,hut.jpg
+House,719662.3241717261,400,2,2,1,Tampa,C:\Users\Will\eclipse-workspace\RealEstate\minecraftHouse.jpg
+House,721073.8376877158,800,1,1,1,Los Angeles,C:\Users\Will\eclipse-workspace\RealEstate\FlexHouse.jpg
